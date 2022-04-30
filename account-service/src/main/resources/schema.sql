@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS account;
 CREATE TABLE `account` (
     `account_id`     BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `customer_id`    BIGINT       NOT NULL,
-    `account_number` VARCHAR(10)  NOT NULL,
+    `account_number` BIGINT       NOT NULL,
     `account_type`   VARCHAR(100) NOT NULL,
     `branch_address` VARCHAR(500) NOT NULL,
     `create_date`    TIMESTAMP    NOT NULL
