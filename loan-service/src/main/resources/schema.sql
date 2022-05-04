@@ -9,5 +9,6 @@ CREATE TABLE `loan` (
     `amount_paid`        INT          NOT NULL,
     `outstanding_amount` INT          NOT NULL,
     `start_date`         TIMESTAMP    NOT NULL,
-    `create_date`        TIMESTAMP    NOT NULL
+    `create_date`        TIMESTAMP    NOT NULL,
+    PRIMARY KEY (`loan_id`)
 );

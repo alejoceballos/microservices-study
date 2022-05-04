@@ -1,14 +1,15 @@
 DROP TABLE IF EXISTS customer;
 
+DROP TABLE IF EXISTS account;
+
 CREATE TABLE `customer` (
     `customer_id`  BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name`         VARCHAR(100) NOT NULL,
     `email`        VARCHAR(320) NOT NULL,
     `phone_number` VARCHAR(15),
-    `create_date`  TIMESTAMP    NOT NULL
+    `create_date`  TIMESTAMP    NOT NULL,
+    PRIMARY KEY (`customer_id`)
 );
-
-DROP TABLE IF EXISTS account;
 
 CREATE TABLE `account` (
     `account_id`     BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -16,5 +17,6 @@ CREATE TABLE `account` (
     `account_number` BIGINT       NOT NULL,
     `account_type`   VARCHAR(100) NOT NULL,
     `branch_address` VARCHAR(500) NOT NULL,
-    `create_date`    TIMESTAMP    NOT NULL
+    `create_date`    TIMESTAMP    NOT NULL,
+    PRIMARY KEY (`account_id`)
 );
