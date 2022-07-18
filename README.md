@@ -1,20 +1,23 @@
 ## Build docker image
 
 ```shell
-docker build . -t ceballos/bank/account-service
+docker build . -t alejoceballos/bank_account-service
 ```
+NOTE: Do not use unnecessary "/" like "alejoceballos/bank/account-service". 
+Docker Hub will consider "bank" as a resource and "account-service" as another
+responding something like "denied: requested access to the resource is denied".
 
 ## Inspect image
 
 ```shell
-docker image inspect ceballos/bank/account-service
+docker image inspect alejoceballos/bank_account-service
 ```
 ```
 [
     {
         "Id": "sha256:4e0af9cd0e96a0d182c50e8557034bd38ca0e910970926a922332714f16636cc",
         "RepoTags": [
-            "ceballos/bank/account-service:latest"
+            "alejoceballos/bank_account-service:latest"
         ],
         "RepoDigests": [],
         "Parent": "",
@@ -107,15 +110,15 @@ Run a container in:
   - Mapping port `8080` in localhost to `8080` in the container
 - --name account-service
   - Naming the container `account-service`
-- ceballos/bank/account-service
+- alejoceballos/bank_account-service
   - Based on this image
 
-Ex:
+### Example
 ```shell
-docker run -d -p 8080:8080 --name account-service ceballos/bank/account-service
+docker run -d -p 8080:8080 --name account-service alejoceballos/bank_account-service
 ```
 
-### Other Docker commands
+## Other Docker commands
 `docker exec -it <container> <command>`
 
 `docker logs <container> -f`
@@ -123,3 +126,39 @@ docker run -d -p 8080:8080 --name account-service ceballos/bank/account-service
 `docker pause <container>` and `docker unpause <container>`
 
 `docker stop <container>` vs `docker kill <container>`
+
+## Build docker image with Buildpacks
+
+### See:
+- https://buildpacks.io/
+- https://paketo.io/
+
+### Example:
+Instead of...
+```shell
+docker build . -t alejoceballos/bank_loan-service
+```
+... Run...
+
+_Maven_:
+```shell
+./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=alejoceballos/bank_loan-service
+```
+_Gradle_:
+```shell
+./gradlew bootBuildImage --imageName=alejoceballos/bank_loan-service
+```
+
+**NOTE:** On WSL, just setting `chmod +x ./gradlew` to be able to execute 
+gradle won't be enough. You must convert the file format from Windows to 
+Linux-like (end of line issues). A simple solution for those with 
+`Sublime Text` is to open the file and select `Linux` from 
+`View / Line Endings` menu and save the file. Others may use `Dos2Unix` program 
+or create one from your favorite programming language that removes all 
+"carriage return" characters (`\r`) leaving only the "new line" ones (`\r`).
+
+### Push Images to Docker Hub
+
+```shell
+docker push alejoceballos/bank_account-service
+```

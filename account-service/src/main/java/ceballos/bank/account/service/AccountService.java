@@ -15,9 +15,14 @@ public class AccountService {
 
     private final AccountRepository repository;
 
-    public List<Account> findBy(@RequestParam Long customerId) {
-        return repository.findAllByCustomerId(customerId);
+    public List<Account> findBy(final Long customerId) {
+        List<Account> accounts = repository.findAllByCustomerId(customerId);
+        return accounts;
     }
 
 
+    public Account findById(final Long id) {
+        Account account = repository.findById(id).orElse(null);
+        return account;
+    }
 }

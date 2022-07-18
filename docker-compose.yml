@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+    account-service:
+        image: alejoceballos/bank_account-service:latest
+        ports:
+            - "8080:8080"
+        networks:
+            - bank-network
+    loan-service:
+        image: alejoceballos/bank_loan-service:latest
+        ports:
+            - "8090:8090"
+        networks:
+            - bank-network
+    card-service:
+        image: alejoceballos/bank_card-service:latest
+        ports:
+            - "8100:8100"
+        networks:
+            - bank-network
+
+networks:
+    bank-network:
+
