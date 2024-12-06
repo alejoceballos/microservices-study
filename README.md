@@ -41,3 +41,20 @@ When developing microservices, bear in mind:
 - Validate inputs and return proper HTTP error codes and messages
 - Document the API (Open API, Swagger, etc.)
 
+## A Basic Spring Web Application
+
+- Using Spring Initializer
+![A basic Spring Web Application using Spring Initializer](README.files/Basic-Spring-Web-Application.png "Spring Initializer")
+
+- Adding it as a module in IntelliJ
+![Import Module from an existing Spring Boot application](./README.files/Import-Spring-Boot-App-As-IntelliJ-Module.png "Import Module")
+
+- Using YAML files instead of properties files
+
+## H2 Database:
+
+Creating a "schema.sql" file under "main/resources", H2 will create the tables when starting up.
+
+To be able to access the H2 memory database using IntelliJ, besides the web h2-console, check [Querying the embedded H2 database of a Spring Boot application](http://web.archive.org/web/20160513065923/http://blog.techdev.de/querying-the-embedded-h2-database-of-a-spring-boot-application/).
+
+## Using JPA
