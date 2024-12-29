@@ -55,6 +55,69 @@ When developing microservices, bear in mind:
 
 Creating a "schema.sql" file under "main/resources", H2 will create the tables when starting up.
 
-To be able to access the H2 memory database using IntelliJ, besides the web h2-console, check [Querying the embedded H2 database of a Spring Boot application](http://web.archive.org/web/20160513065923/http://blog.techdev.de/querying-the-embedded-h2-database-of-a-spring-boot-application/).
+To be able to access the H2 memory database using IntelliJ, besides the web h2-console.
+Check:
+- [Querying the embedded H2 database of a Spring Boot application](http://web.archive.org/web/20160513065923/http://blog.techdev.de/querying-the-embedded-h2-database-of-a-spring-boot-application/).
+- H2ServerConfiguration.class
+
+## Spring Rest Controller
+Go deeper on:
+```
+(application.properties) server.servlet.context-path=/api
+
+@RequestMapping(value = "path", produces = {MediaType.APPLICATION_JSON_VALUE})
+
+@GetMapping / @PostMapping / @PutMapping / @DeleteMapping / @PatchMapping
+
+@RequestBody / @RequestParam / @PathVariable
+
+ResponseEntity
+
+Exception with @ResponseStatus(HttpStatus.BAD_REQUEST)
+
+@ControllerAdvice / @ExceptionHandler
+
+@ResponseStatus
+```
 
 ## Using JPA
+
+Go deeper on:
+```
+@MappedSuperclass
+
+@Column(updatable = false) / @Column(insertable = false)
+
+@EntityListeners / @PrePersist / @PreUpdate
+
+... extends JpaRepository
+
+Optional<T> findByXXX(T xxx)
+
+@Transactional
+
+How to use Spring returning Optional and Hibernate Proxy? No persistence context?
+
+jpa.show-sql=true
+jpa.properties.hibernate.format_sql=true
+logging.level.org.hibernate.orm.jdbc.bind=trace
+
+```
+
+## Using Lombok
+
+Go deeper on:
+```
+@Builder / @SuperBuilder
+
+@Data
+
+```
+
+
+## Layered Monolithic Architecture
+```
+Clinet (HTTP) -> Controller -> Service -> Repository -> Database
+                     |                        |
+                   Mapper                JPA/Hibernate
+```
