@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class UserManager {
 
     public String getLoggedUser() {
-        return "Alejo";
+        return "svcuser_account";
     }
 
 }

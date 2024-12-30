@@ -51,6 +51,13 @@ When developing microservices, bear in mind:
 
 - Using YAML files instead of properties files
 
+### Layered Monolithic Architecture
+```
+Client (HTTP) -> Controller -> Service -> Repository -> Database
+                     |                        |
+                   Mapper                JPA/Hibernate
+```
+
 ## H2 Database:
 
 Creating a "schema.sql" file under "main/resources", H2 will create the tables when starting up.
@@ -115,9 +122,15 @@ extends ResponseEntityExceptionHandler
 override handleMethodArgumentNotValid
 ```
 
-## Layered Monolithic Architecture
+## Auditing
+
+Go deeper on:
 ```
-Clinet (HTTP) -> Controller -> Service -> Repository -> Database
-                     |                        |
-                   Mapper                JPA/Hibernate
+XXX implements AuditorAware<?>
+@EnableJpaAuditing(auditorAwareRef = "XXX") + @Component("XXX")
+@EntityListeners(AuditingEntityListener.class)
+
+Spring's "AuditingEntityListener" vs. My own "BaseEntityListener"
+ 
+[@PrePersist / @PreUpdate] vs. [@CreatedDate / @CreatedBy / @LastModifiedDate / @LastModifiedBy]
 ```

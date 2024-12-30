@@ -2,7 +2,6 @@ package com.momo2x.momobank.accounts.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "accounts")
-@EntityListeners(BaseEntityListener.class)
 public class Account extends BaseEntity {
 
     @Id
