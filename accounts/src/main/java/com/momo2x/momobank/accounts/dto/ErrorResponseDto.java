@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -11,9 +12,6 @@ public class ErrorResponseDto {
 
     private LocalDateTime errorTime;
     private String apiPath;
-    private final int httpCode;
-    private final String httpSeries;
-    private final String httpDescription;
-    private String errorMessage;
+    private List<String> errorMessages;
 
 }
