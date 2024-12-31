@@ -72,10 +72,18 @@ Go deeper on:
 ```
 (application.properties) server.servlet.context-path=/api
 
-@RequestMapping(value = "path", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RestController = @Controller + @ResponseBody
+
+@RequestMapping
+  path
+  MediaType.APPLICATION_JSON_VALUE
+
 @GetMapping / @PostMapping / @PutMapping / @DeleteMapping / @PatchMapping
 @RequestBody / @RequestParam / @PathVariable
-ResponseEntity
+@RequestHeader
+
+RequestEntity<T>
+ResponseEntity<T>
 
 @ResponseStatus vs. @ControllerAdvice / @ExceptionHandler
 ```
