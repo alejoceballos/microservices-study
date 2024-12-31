@@ -134,3 +134,30 @@ Spring's "AuditingEntityListener" vs. My own "BaseEntityListener"
  
 [@PrePersist / @PreUpdate] vs. [@CreatedDate / @CreatedBy / @LastModifiedDate / @LastModifiedBy]
 ```
+
+## API Documentation
+
+Check: https://springdoc.org/
+
+Just add the dependency (no security at this time).
+
+Note that context-path is "api", so should go to: http://localhost:8080/api/swagger-ui/index.html
+
+Validations are used to improve the documentation
+
+Go deeper on: 
+```
+@OpenApiDefinition
+  @Info
+    @Contact
+    @License
+  @ExternalDocumentation(
+
+@Tag
+
+@Operation
+  @ApiResponse vs. @ApiResponses
+    @Content
+  
+@Schema
+```

@@ -38,7 +38,7 @@ public class AccountService {
     public AccountDto findByCustomerMobileNumber(final String mobileNumber) {
         final var accountDto = accountMapper.toDto(
                 accountRepository
-                        .findById(customerService.findCustomerIdByMobileNumber(mobileNumber))
+                        .findByCustomerId(customerService.findCustomerIdByMobileNumber(mobileNumber))
                         .orElseThrow(notFoundExceptionSupplier(
                                 Account.class,
                                 format("customer's mobile number %s", mobileNumber))));

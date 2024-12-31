@@ -12,6 +12,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -79,11 +80,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             final List<String> messages,
             final WebRequest webRequest
     ) {
-        return new ErrorResponseDto(
-                dateTimeManager.now(),
-                webRequest.getDescription(false),
-                messages
-        );
+        String method = null;
+        String apiPtah = webRequest.getDescription(false);
+
+        if (webRequest instanceof ServletWebRequest) {
+            method = ((ServletWebRequest) webRequest).getRequest().getMethod();
+            apiPtah = ((ServletWebRequest) webRequest).getRequest().getRequestURI();
+        }
+
+        return new ErrorResponseDto(dateTimeManager.now(), apiPtah, method, messages);
     }
 
 }
