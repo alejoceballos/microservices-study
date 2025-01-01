@@ -1,4 +1,4 @@
-package com.momo2x.momobank.accounts.config;
+package com.momo2x.momobank.loans.config;
 
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,14 +12,14 @@ import static org.h2.tools.Server.createTcpServer;
 import static org.h2.tools.Server.createWebServer;
 
 @Configuration
-public class H2ServerConfiguration {
+public class H2LoansServerConfiguration {
 
     // TCP port for remote connections, default 9092
     @Value("${h2.tcp.port:9092}")
     private String h2TcpPort;
 
     // Web port, default 8082
-    @Value("${h2.web.port:8082}")
+    @Value("${h2.web.port:8086}")
     private String h2WebPort;
 
     /**

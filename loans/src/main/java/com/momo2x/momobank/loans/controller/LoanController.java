@@ -1,9 +1,9 @@
-package com.momo2x.momobank.cards.controller;
+package com.momo2x.momobank.loans.controller;
 
-import com.momo2x.momobank.cards.dto.CardDto;
-import com.momo2x.momobank.cards.dto.ErrorResponseDto;
-import com.momo2x.momobank.cards.dto.ResponseDto;
-import com.momo2x.momobank.cards.service.CardService;
+import com.momo2x.momobank.loans.dto.ErrorResponseDto;
+import com.momo2x.momobank.loans.dto.LoanDto;
+import com.momo2x.momobank.loans.dto.ResponseDto;
+import com.momo2x.momobank.loans.service.LoanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,20 +30,20 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Tag(
-        name = "Cards API",
-        description = "Cards operations"
+        name = "Loans API",
+        description = "Loans operations"
 )
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/v1/cards", produces = {APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/v1/loans", produces = {APPLICATION_JSON_VALUE})
 @Validated
-public class CardsController {
+public class LoanController {
 
-    private final CardService cardService;
+    private final LoanService loanService;
 
     @Operation(
-            summary = "Create a card",
-            description = "Creates a new card"
+            summary = "Create a loan",
+            description = "Creates a new loan"
     )
     @ApiResponses({
             @ApiResponse(
@@ -63,21 +62,21 @@ public class CardsController {
             )
     })
     @PostMapping
-    public ResponseEntity<ResponseDto<CardDto>> create(
+    public ResponseEntity<ResponseDto<LoanDto>> create(
             @NotBlank(message = "Mobile Number can not be a null or empty")
-            @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile Number must be 10 digits")
+            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile Number must be 10 digits")
             @RequestParam final String mobileNumber
     ) {
         return ResponseEntity
                 .status(CREATED)
                 .body(new ResponseDto<>(
-                        "Card created",
-                        cardService.create(mobileNumber)));
+                        "Loan created",
+                        loanService.create(mobileNumber)));
     }
 
     @Operation(
-            summary = "Find card by mobile number",
-            description = "Finds the card using the customer's mobile number"
+            summary = "Find loan by mobile number",
+            description = "Finds the loan using the customer's mobile number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -93,21 +92,21 @@ public class CardsController {
             )
     })
     @GetMapping
-    public ResponseEntity<ResponseDto<CardDto>> findByMobileNumber(
+    public ResponseEntity<ResponseDto<LoanDto>> findByMobileNumber(
             @NotBlank(message = "Mobile Number can not be a null or empty")
-            @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile Number must be 10 digits")
+            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile Number must be 10 digits")
             @RequestParam final String mobileNumber
     ) {
         return ResponseEntity
                 .status(OK)
                 .body(new ResponseDto<>(
-                        "Card retrieved",
-                        cardService.findByMobileNumber(mobileNumber)));
+                        "Loan retrieved",
+                        loanService.findByMobileNumber(mobileNumber)));
     }
 
     @Operation(
-            summary = "Update a card info",
-            description = "Updates an existing card information"
+            summary = "Update a loan info",
+            description = "Updates an existing loan information"
     )
     @ApiResponses({
             @ApiResponse(
@@ -123,20 +122,20 @@ public class CardsController {
             )
     })
     @PutMapping
-    public ResponseEntity<ResponseDto<CardDto>> update(
+    public ResponseEntity<ResponseDto<LoanDto>> update(
             @Valid
-            @RequestBody final CardDto card
+            @RequestBody final LoanDto loan
     ) {
         return ResponseEntity
                 .status(OK)
                 .body(new ResponseDto<>(
-                        "Card updated",
-                        cardService.update(card)));
+                        "Loan updated",
+                        loanService.update(loan)));
     }
 
     @Operation(
-            summary = "Delete a card by mobile number",
-            description = "Deletes a card according to the customer's mobile number"
+            summary = "Delete account by mobile number",
+            description = "Deletes an account according to  the customer's mobile number"
     )
     @ApiResponses({
             @ApiResponse(
@@ -151,17 +150,17 @@ public class CardsController {
                     )
             )
     })
-    @DeleteMapping("/{cardNumber}")
+    @DeleteMapping("/{loanNumber}")
     public ResponseEntity<String> delete(
-            @NotBlank(message = "Card number can not be a null or empty")
-            @Pattern(regexp = "(^$|[0-9]{12})", message = "Card number must be 12 digits")
-            @PathVariable final String cardNumber
+            @NotBlank(message = "Loan number can not be a null or empty")
+            @Pattern(regexp = "(^$|[0-9]{12})", message = "Loan number must be 12 digits")
+            @RequestParam final String loanNumber
     ) {
-        cardService.deleteByCardNumber(cardNumber);
+        loanService.deleteByLoanNumber(loanNumber);
 
         return ResponseEntity
                 .status(OK)
-                .body("Card deleted");
+                .body("Loan deleted");
     }
 
 }

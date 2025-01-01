@@ -1,6 +1,6 @@
-package com.momo2x.momobank.accounts;
+package com.momo2x.momobank.loans;
 
-import com.momo2x.momobank.accounts.audit.AccountsAuditor;
+import com.momo2x.momobank.loans.audit.LoansAuditor;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -13,8 +13,8 @@ import static org.springframework.boot.SpringApplication.run;
 
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Accounts API",
-				description = "Accounts Rest API Documentation",
+				title = "Loans API",
+				description = "Loans Rest API Documentation",
 				version = "v1",
 				contact = @Contact(
 						name = "Alejo Ceballos",
@@ -26,16 +26,16 @@ import static org.springframework.boot.SpringApplication.run;
 				)
 		),
 		externalDocs = @ExternalDocumentation(
-				description = "Accounts API Github API project",
+				description = "Loans API Github API project",
 				url = "https://github.com/alejoceballos/microservices-study"
 		)
 )
-@EnableJpaAuditing(auditorAwareRef = AccountsAuditor.BEAN_NAME)
+@EnableJpaAuditing(auditorAwareRef = LoansAuditor.BEAN_NAME)
 @SpringBootApplication
-public class AccountsApplication {
+public class LoansApplication {
 
 	public static void main(String[] args) {
-		run(AccountsApplication.class, args);
+		run(LoansApplication.class, args);
 	}
 
 }

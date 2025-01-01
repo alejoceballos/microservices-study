@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.momo2x.momobank.accounts.audit.AuditorWrapper.BEAN_NAME;
+import static com.momo2x.momobank.accounts.audit.AccountsAuditor.BEAN_NAME;
 
 @RequiredArgsConstructor
 @Component(BEAN_NAME)
-public class AuditorWrapper implements AuditorAware<String> {
+public class AccountsAuditor implements AuditorAware<String> {
 
-    public static final String BEAN_NAME = "AuditorWrapper";
+    public static final String BEAN_NAME = "AccountsAuditor";
 
     private final UserManager user;
 

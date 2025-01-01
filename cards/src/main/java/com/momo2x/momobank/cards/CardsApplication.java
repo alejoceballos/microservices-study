@@ -1,6 +1,6 @@
 package com.momo2x.momobank.cards;
 
-import com.momo2x.momobank.cards.audit.AuditorWrapper;
+import com.momo2x.momobank.cards.audit.CardsAuditor;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -13,8 +13,8 @@ import static org.springframework.boot.SpringApplication.run;
 
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Accounts API",
-				description = "Accounts Rest API Documentation",
+				title = "Cards API",
+				description = "Cards Rest API Documentation",
 				version = "v1",
 				contact = @Contact(
 						name = "Alejo Ceballos",
@@ -26,11 +26,11 @@ import static org.springframework.boot.SpringApplication.run;
 				)
 		),
 		externalDocs = @ExternalDocumentation(
-				description = "Accounts API Github API project",
+				description = "Cards API Github API project",
 				url = "https://github.com/alejoceballos/microservices-study"
 		)
 )
-@EnableJpaAuditing(auditorAwareRef = AuditorWrapper.BEAN_NAME)
+@EnableJpaAuditing(auditorAwareRef = CardsAuditor.BEAN_NAME)
 @SpringBootApplication
 public class CardsApplication {
 
