@@ -2,6 +2,8 @@
 My notes and code from https://www.udemy.com/course/master-microservices-with-spring-docker-kubernetes
 - Course Reference: https://github.com/eazybytes/microservices
 
+![Microservices Architecture](README.files/Microservices-Architecture.png "Microservices Architecture")
+
 ## Microservices
 An architecture style that enables building enterprise web applications. It separates business domain logic into 
 different services ideally each one with its own database. It allows not only parallel development, but horizontal 
@@ -29,6 +31,19 @@ When developing microservices, bear in mind:
 - Event Driven (RabbitMQ, Kafka);
 - Orchestration (Kubernetes);
 - Cloud Deployment;
+
+#### Identifying Boundaries
+
+* DDD - Domain Driven design
+  * Talk to Domain experts, Business Analysts, users, etc.
+  * Keep continuous analysis to prevent growing or shrinking too much, in order to split in other servers or to be  
+absorbed by another one. 
+  * This process takes  along amount of time
+* Event Storming Sizing
+  * https://www.lucidchart.com/blog/ddd-event-storming
+  * Identify events in the system: "completed payment", "list of products"
+  * Identify commands from the events
+  * Identify reactions from the commands
 
 ## Communication 
 - Synchronous messaging: Representational State Transfer (REST)
@@ -58,7 +73,7 @@ Client (HTTP) -> Controller -> Service -> Repository -> Database
                    Mapper                JPA/Hibernate
 ```
 
-## H2 Database:
+### H2 Database:
 
 Creating a "schema.sql" file under "main/resources", H2 will create the tables when starting up.
 
@@ -67,7 +82,7 @@ Check:
 - [Querying the embedded H2 database of a Spring Boot application](http://web.archive.org/web/20160513065923/http://blog.techdev.de/querying-the-embedded-h2-database-of-a-spring-boot-application/).
 - H2ServerConfiguration.class
 
-## Spring Rest Controller
+### Spring Rest Controller
 Go deeper on:
 ```
 (application.properties) server.servlet.context-path=/api
@@ -88,7 +103,7 @@ ResponseEntity<T>
 @ResponseStatus vs. @ControllerAdvice / @ExceptionHandler
 ```
 
-## Using JPA
+### Using JPA
 
 Go deeper on:
 ```
@@ -109,7 +124,7 @@ jpa.properties.hibernate.format_sql=true
 logging.level.org.hibernate.orm.jdbc.bind=trace
 ```
 
-## Using Lombok
+### Using Lombok
 
 Go deeper on:
 ```
@@ -119,7 +134,7 @@ Go deeper on:
 JPA entities shouldn't have @Data
 ```
 
-## Validators
+### Validators
 
 Go deeper on:
 ```
@@ -130,7 +145,7 @@ extends ResponseEntityExceptionHandler
 override handleMethodArgumentNotValid
 ```
 
-## Auditing
+### Auditing
 
 Go deeper on:
 ```
@@ -143,7 +158,7 @@ Spring's "AuditingEntityListener" vs. My own "BaseEntityListener"
 [@PrePersist / @PreUpdate] vs. [@CreatedDate / @CreatedBy / @LastModifiedDate / @LastModifiedBy]
 ```
 
-## API Documentation
+### API Documentation
 
 Check: https://springdoc.org/
 
@@ -169,3 +184,7 @@ Go deeper on:
   
 @Schema
 ```
+
+## Docker
+
+TBD
