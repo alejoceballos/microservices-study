@@ -280,7 +280,9 @@ Faster than Buildpacks. Need to add a plugin to pom.xml.
 
 ### Push images to Docker hub
 
-TBD
+```shell
+docker image push docker.io/username/imagename:tag
+```
 
 ### Docker Compose
 
