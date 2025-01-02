@@ -1,10 +1,38 @@
 # Microservices Study
+
 My notes and code from https://www.udemy.com/course/master-microservices-with-spring-docker-kubernetes
 - Course Reference: https://github.com/eazybytes/microservices
 
 ![Microservices Architecture](README.files/Microservices-Architecture.png "Microservices Architecture")
 
+## Table of Contents
+* [Microservices](#microservices)
+  * [Important](#important)
+    * [Identifying Boundaries](#identifying-boundaries)
+* [Communication](#communication-)
+  * [Notes regarding REST](#notes-regarding-rest)
+* [A Basic Spring Web Application](#a-basic-spring-web-application)
+  * [Layered Monolithic Architecture](#layered-monolithic-architecture)
+  * [H2 Database:](#h2-database)
+  * [Spring Rest Controller](#spring-rest-controller)
+  * [Using JPA](#using-jpa)
+  * [Using Lombok](#using-lombok)
+  * [Validators](#validators)
+  * [Auditing](#auditing)
+  * [API Documentation](#api-documentation)
+* [Docker](#docker)
+  * [Containers vs. Virtual Machines](#containers-vs-virtual-machines)
+    * [NOTE!](#note)
+  * [Images & Container](#images--container)
+  * [Generating Docker Images:](#generating-docker-images)
+    * [Dockerfile](#dockerfile)
+    * [Buildpacks](#buildpacks)
+    * [Google Jib](#google-jib)
+  * [Push images to Docker hub](#push-images-to-docker-hub)
+  * [Docker Compose](#docker-compose)
+
 ## Microservices
+
 An architecture style that enables building enterprise web applications. It separates business domain logic into 
 different services ideally each one with its own database. It allows not only parallel development, but horizontal 
 scaling. On the other side, it has some management complexity and infrastructure overhead, but it allows the deployment
@@ -19,6 +47,7 @@ services can be reused and better balanced. Its management, however is more comp
 the communication between services demands a complex  and overloaded protocol (e.g. SOAP).
 
 ### Important
+
 When developing microservices, bear in mind:
 - Defining boundaries (DDD);
 - Containerization (Docker);
@@ -46,12 +75,14 @@ absorbed by another one.
   * Identify reactions from the commands
 
 ## Communication 
+
 - Synchronous messaging: Representational State Transfer (REST)
 - Asynchronous messaging:
   - Queue managers (e.g. RabbitMQ, IBM MQ)
   - Message broadcast managers (Kafka)
 
 ### Notes regarding REST
+
 - Use verbs for CRUD operations (GET, POST, PUT, PATCH, DELETE, etc.)
 - Validate inputs and return proper HTTP error codes and messages
 - Document the API (Open API, Swagger, etc.)
@@ -67,6 +98,7 @@ absorbed by another one.
 - Using YAML files instead of properties files
 
 ### Layered Monolithic Architecture
+
 ```
 Client (HTTP) -> Controller -> Service -> Repository -> Database
                      |                        |
@@ -83,6 +115,7 @@ Check:
 - H2ServerConfiguration.class
 
 ### Spring Rest Controller
+
 Go deeper on:
 ```
 (application.properties) server.servlet.context-path=/api
@@ -186,5 +219,69 @@ Go deeper on:
 ```
 
 ## Docker
+
+Simply put, **Docker** is the software that allows creating containers.  
+
+### Containers vs. Virtual Machines
+
+Virtualization is a way to use a single machine to run many environments simulating several machines working at the same 
+time, but while "Virtual Machines" are capable to run diverse operating systems, allowing to simulate deploying a system
+to a Mac and a Linux OS, containers share the same OS kernel, meaning that all of them will simulate running in the same 
+OS. However, having multiple Virtual Machines in the same machine wil demand more processing and memory than having 
+multiple containers.
+
+![Containers vs. Virtual Machines](README.files/VM-Vs-Container.png "Containers vs. Virtual Machines")
+
+#### NOTE!
+
+Docker allows using Windows and Linux containers simultaneously in a Windows machine. Check 
+[Running Docker Windows and Linux Containers Simultaneously](https://devblogs.microsoft.com/premier-developer/running-docker-windows-and-linux-containers-simultaneously/)
+
+### Images & Container
+- The **image** is a blueprint of an environment that will hold the service we are building; 
+- The **container** is an instance of an image running the service in an isolated environment. 
+
+### Generating Docker Images:
+
+- Dockerfile
+- Buildpacks
+- Google Jib
+
+#### Dockerfile
+
+Needs more manual steps and must know more of Docker internals.
+
+1. Create your artifact (`mvn clean install`)
+2. Create your Dockerfile (`FROM`/`COPY`/`ENTRYPOINT`)
+3. Create your image (`docker build`)
+4. Run your container (`docker run`)
+
+#### Buildpacks
+
+Does not need to know Docker internals, just add a configuration to the existing plugin. For professional deployment, it
+seems to be a more complete tool than the next one, Google Jib.
+
+1. Edit `pom.xml` (spring-boot-maven-plugin), add: `configuration` / `image` / `name`
+2. Create your image (`mvn spring-boot:build-image`)
+3. Run your container (`docker run`)
+
+#### Google Jib
+
+Faster than Buildpacks. Need to add a plugin to pom.xml.
+
+1. Edit `pom.xml`, add `jib-maven-plugin`
+2. Create your image (`mvn compile jib:dockerBuild`)
+3. Run your container (`docker run`)
+
+#### Comparison
+
+- [Buildpacks vs Jib vs Dockerfile: Comparing containerization methods](https://cloud.google.com/blog/topics/developers-practitioners/comparing-containerization-methods-buildpacks-jib-and-dockerfile)
+- [Buildpacks.io comparison page](https://buildpacks.io/features/#comparison)
+
+### Push images to Docker hub
+
+TBD
+
+### Docker Compose
 
 TBD
