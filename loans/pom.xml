@@ -11,7 +11,7 @@
 	<groupId>com.momo2x.momobank</groupId>
 	<artifactId>loans</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Accounts</name>
+	<name>Loans</name>
 	<description>Momo Bank loans service</description>
 	<url/>
 	<licenses>

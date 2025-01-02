@@ -286,4 +286,10 @@ docker image push docker.io/username/imagename:tag
 
 ### Docker Compose
 
-TBD
+- Create a `docker-compose-yml` file
+- Run `docker compose up` command
+
+### Docker Desktop extensions
+
+- Logs Explorer
+

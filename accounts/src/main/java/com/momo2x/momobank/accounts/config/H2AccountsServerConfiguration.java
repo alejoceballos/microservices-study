@@ -15,31 +15,21 @@ import static org.h2.tools.Server.createWebServer;
 public class H2AccountsServerConfiguration {
 
     // TCP port for remote connections, default 9092
-    @Value("${h2.tcp.port:9090}")
+    @Value("${h2.tcp.port}")
     private String h2TcpPort;
 
     // Web port, default 8082
-    @Value("${h2.web.port:8084}")
+    @Value("${h2.web.port}")
     private String h2WebPort;
 
-    /**
-     * TCP connection to connect with SQL clients to the embedded h2 database.
-     * <p>
-     * Connect to "jdbc:h2:tcp://localhost:9092/mem:testdb", username "sa", password empty.
-     */
     @Bean
-    @ConditionalOnExpression("${h2.tcp.enabled:false}")
+    @ConditionalOnExpression("${h2.tcp.enabled}")
     public Server h2TcpServer() throws SQLException {
         return createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", h2TcpPort).start();
     }
 
-    /**
-     * Web console for the embedded h2 database.
-     * <p>
-     * Go to "<a href="http://localhost:8082">localhost:8082</a>" and connect to the database "jdbc:h2:mem:testdb", username "sa", password empty.
-     */
     @Bean
-    @ConditionalOnExpression("${h2.web.enabled:true}")
+    @ConditionalOnExpression("${h2.web.enabled}")
     public Server h2WebServer() throws SQLException {
         return createWebServer("-web", "-webAllowOthers", "-webPort", h2WebPort).start();
     }
