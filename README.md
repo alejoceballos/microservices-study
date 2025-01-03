@@ -5,31 +5,58 @@ My notes and code from https://www.udemy.com/course/master-microservices-with-sp
 
 ![Microservices Architecture](README.files/Microservices-Architecture.png "Microservices Architecture")
 
-## Table of Contents
-* [Microservices](#microservices)
-  * [Important](#important)
-    * [Identifying Boundaries](#identifying-boundaries)
-* [Communication](#communication-)
-  * [Notes regarding REST](#notes-regarding-rest)
-* [A Basic Spring Web Application](#a-basic-spring-web-application)
-  * [Layered Monolithic Architecture](#layered-monolithic-architecture)
-  * [H2 Database:](#h2-database)
-  * [Spring Rest Controller](#spring-rest-controller)
-  * [Using JPA](#using-jpa)
-  * [Using Lombok](#using-lombok)
-  * [Validators](#validators)
-  * [Auditing](#auditing)
-  * [API Documentation](#api-documentation)
-* [Docker](#docker)
-  * [Containers vs. Virtual Machines](#containers-vs-virtual-machines)
-    * [NOTE!](#note)
-  * [Images & Container](#images--container)
-  * [Generating Docker Images:](#generating-docker-images)
-    * [Dockerfile](#dockerfile)
-    * [Buildpacks](#buildpacks)
-    * [Google Jib](#google-jib)
-  * [Push images to Docker hub](#push-images-to-docker-hub)
-  * [Docker Compose](#docker-compose)
+**Table of Contents**
+
+<!-- TOC -->
+* [Microservices Study](#microservices-study)
+  * [Microservices](#microservices)
+    * [Important](#important)
+      * [Identifying Boundaries](#identifying-boundaries)
+  * [Communication](#communication-)
+    * [Notes regarding REST](#notes-regarding-rest)
+  * [Cloud Native](#cloud-native)
+    * [Cloud Native vs. Traditional Enterprise](#cloud-native-vs-traditional-enterprise)
+    * [Development Principles](#development-principles)
+      * [12/15-Factor methodology](#1215-factor-methodology)
+        * [Characteristics:](#characteristics)
+        * [Principles:](#principles)
+          * [1) 1 Code base, 1 Application](#1-1-code-base-1-application)
+          * [2) API first](#2-api-first)
+          * [3) Dependency management](#3-dependency-management)
+          * [4) Design, build, release, run](#4-design-build-release-run)
+          * [5) Configuration, credentials & code](#5-configuration-credentials--code)
+          * [6) Logs](#6-logs)
+          * [7) Disposability](#7-disposability)
+          * [8) Backing services](#8-backing-services)
+          * [9) Environment parity](#9-environment-parity)
+          * [10) Administrative processes](#10-administrative-processes)
+          * [11) Port binding](#11-port-binding-)
+          * [12) Stateless processes](#12-stateless-processes)
+          * [13) Concurrency](#13-concurrency)
+          * [14) Telemetry](#14-telemetry)
+          * [15) Authentication & Authorization](#15-authentication--authorization)
+  * [A Basic Spring Web Application](#a-basic-spring-web-application)
+    * [Layered Monolithic Architecture](#layered-monolithic-architecture)
+    * [H2 Database:](#h2-database)
+    * [Spring Rest Controller](#spring-rest-controller)
+    * [Using JPA](#using-jpa)
+    * [Using Lombok](#using-lombok)
+    * [Validators](#validators)
+    * [Auditing](#auditing)
+    * [API Documentation](#api-documentation)
+  * [Docker](#docker)
+    * [Containers vs. Virtual Machines](#containers-vs-virtual-machines)
+      * [NOTE! Using two OS simultaneously](#note-using-two-os-simultaneously)
+    * [Images & Container](#images--container)
+    * [Generating Docker Images:](#generating-docker-images)
+      * [Dockerfile](#dockerfile)
+      * [Buildpacks](#buildpacks)
+      * [Google Jib](#google-jib)
+      * [Comparison](#comparison)
+    * [Push images to Docker hub](#push-images-to-docker-hub)
+    * [Docker Compose](#docker-compose)
+    * [Docker Desktop extensions](#docker-desktop-extensions)
+<!-- TOC -->
 
 ## Microservices
 
@@ -86,6 +113,158 @@ absorbed by another one.
 - Use verbs for CRUD operations (GET, POST, PUT, PATCH, DELETE, etc.)
 - Validate inputs and return proper HTTP error codes and messages
 - Document the API (Open API, Swagger, etc.)
+
+## Cloud Native
+
+Create applications designed for cloud computing. Get the full CNCF definition [here](https://github.com/cncf/toc/blob/main/DEFINITION.md).
+Basically it is a set of practices that allow your application to run in any cloud environment.
+
+1. Microservices (Loosely coupled services developed, deployed and scaled independently)
+2. Containers (Lightweight, portable environments)
+3. Scalable & Elastic (Scale horizontally)
+4. DevOps practices (Collaboration Devs + Ops, CI/CD, ...)
+5. Resilient & Fault tolerance (distributes, load balancing, failure recovery, high availability, ...)
+6. Cloud-Native services (cloud platform: AWS, GCP, Azure, ...)
+
+### Cloud Native vs. Traditional Enterprise
+
+_Note: Not sure if I agree with all of this. Those are the course instructor's opinion_
+
+1. Predictability (Error per service vs. Error per whole application)
+2. OS Abstraction (due to containerization)
+3. Oversize & Dependency (Low vs. High)
+4. Delivery (Continuous vs. Waterfall)
+5. Recovery & Scalability (Fast & High vs. Slow & Low)
+
+### Development Principles
+
+#### 12/15-Factor methodology
+
+Based on [The Twelve-Factor App](https://12factor.net/)
+and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books/master/beyond-the-twelve-factor-app.pdf).
+
+##### Characteristics:
+
+- Cloud Platform Deployment: platform independent
+- Scalability as a Core Attribute: Horizontal scalability must be supported
+- System Portability: Cloud technology-agnostic
+- Continuous Deployment & Agility: Facilitate agile development cycles
+
+##### Principles:
+
+|   |                                   |    |                          |    |                                |
+|---|-----------------------------------|----|--------------------------|----|--------------------------------|
+| 1 | 1 Code base, 1 Application        | 6  | Logs                     | 11 | Port binding                   |
+| 2 | API first                         | 7  | Disposability            | 12 | Stateless processes            |
+| 3 | Dependency management             | 8  | Backing services         | 13 | Concurrency                    |
+| 4 | Design, build, release, run       | 9  | Environment parity       | 14 | Telemetry                      |
+| 5 | Configuration, credentials & code | 10 | Administrative processes | 15 | Authentication & Authorization |
+
+###### 1) 1 Code base, 1 Application
+
+- In real life, each microservice must have its own repository.
+- Configurations must be injected externally during deployment (or on'-the-fly?)
+- The same codebase must be used in development, testing and production environments
+
+###### 2) API first
+
+- Prioritize upfront API design
+- Encourage division of work
+- Allow asynchronous development
+
+###### 3) Dependency management
+
+- Declare all dependencies in a manifest
+- Use dependence managers like Maven or Gradle
+
+###### 4) Design, build, release, run
+
+- Design stage: determine techs, dependencies and tools
+- Build stage: compile and package to a unique identifiable immutable artifact
+  - Use semantic versioning or timestamp versioning
+- Release stage: Combine the build to a deployment configuration
+  - Facilitate rollback through a central repository storage
+- Run stage: Execute the application using a release
+
+###### 5) Configuration, credentials & code
+
+- Do not embed configuration in the code
+- Enable change configurations independently of environment
+- Resources for backing services (i.e. databases, messaging, credentials etc.)
+- Do not expose sensitive configurations in the public
+- Store configuration in a distinct, private repository
+
+###### 6) Logs
+
+- Log storage is an external tool responsibility
+- Redirect logs to the standard output
+- Treat logs sequentially according to timestamp
+- Aggregate all logs in an external tool
+
+###### 7) Disposability
+
+- Application in the clouds are considered ephemeral
+- It must be possible to terminate a service and replace it with a new instance
+- Applications can be started and stopped as needed
+- Design applications for fast start up and graceful shutdown
+
+###### 8) Backing services
+
+- Databases, message brokers, caching systems, etc.
+- Different backing service instances per environment
+- Manage each instance using resource binding per environment
+
+###### 9) Environment parity
+
+- Minimize difference between environments
+- Use containers
+- Address:
+  - Time gap: The time between development and deployment. Use Continuous Integration and development
+  - People gap: address the difference between roles. Use DevOps culture
+  - Tools gap: Use the same tools regardless environment (e.g. same database tech in dev, test and production)
+
+###### 10) Administrative processes
+
+- Non-functional tasks, like migrations and maintenance should be treated as an isolated process 
+- These processes are equally important and must be properly tracked, tested and deployed
+- But separate the administrative tasks from the business logic of the service
+
+###### 11) Port binding 
+
+**NOTE: To be reviewed**
+
+- Translate external public endpoints to internal endpoints
+- Can be an application, externally visible, that requests to internal microservices application
+- GraphQL, for example?
+
+###### 12) Stateless processes
+
+- Do not store anything in the service container instance because it will be lost if it is destroyed
+- Important to achieve scalability
+- Share-nothing architecture
+- Use database backing services to store the state
+
+###### 13) Concurrency
+
+- Serve large number of users simultaneously
+- Must be horizontally scalable
+- Java use thread pools
+
+###### 14) Telemetry
+
+- Be able to monitor logs, metrics, traces, health status, events, etc. (observability)
+- Monitor a large number of services and servers
+- Remote monitoring
+
+###### 15) Authentication & Authorization
+
+- Security is a critical aspect
+- Zero-trust approach
+- External and internal communication must follow security standards
+- Authentication & authorization, Code injection prevention: developer responsibility
+  - Authentication: track who is using the system
+  - Authorization: who has access to what
+- HTTPS, SSL certificates, Firewall: platform team responsibility 
 
 ## A Basic Spring Web Application
 
@@ -232,7 +411,7 @@ multiple containers.
 
 ![Containers vs. Virtual Machines](README.files/VM-Vs-Container.png "Containers vs. Virtual Machines")
 
-#### NOTE!
+#### NOTE! Using two OS simultaneously
 
 Docker allows using Windows and Linux containers simultaneously in a Windows machine. Check 
 [Running Docker Windows and Linux Containers Simultaneously](https://devblogs.microsoft.com/premier-developer/running-docker-windows-and-linux-containers-simultaneously/)
