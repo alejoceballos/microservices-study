@@ -1,9 +1,0 @@
-spring:
-  config:
-    activate:
-      on-profile: "prod"
-
-build:
-  name: Cards Service
-  version: q1
-  profile: QA

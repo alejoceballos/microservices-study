@@ -459,7 +459,54 @@ Go deeper on:
 
 ## Spring Cloud Config
 
-TBD
+Go deeper on:
+```
+@EnableConfigServer
+```
+
+Can be stored in:
+- classpath
+- filesystem
+- git
+- database
+- AWS s3
+- etc.
+
+### Configuration
+
+#### Classpath config
+
+- Multiple configs per service (.properties or .yml). Note, use "-" (hyphen), not "_" (underscore).
+  - service1, service1-qa, service1-prod
+  - service2, service2-qa, service2-prod
+  - ...
+- Remove all that is not necessary to externalize and it is not environment dependent
+  - Also `spring.config.activate.on-profile` and `config.import` properties are no longer necessary
+- Add `spring.profiles.active=native` and `spring.cloud.config.server.native-search-locations="classpath:/config"` to 
+application (.properties or .yml)
+
+You can access the configuration through HTTP:
+```
+protocol://server:port/service/environment
+```
+Example:
+```
+http://localhost:8071/accounts/prod
+```
+
+#### Connecting to the services
+
+In your service, there is no need for an application_<profile>, in case it exists, so...
+- Delete all application_<profile>
+- Delete `spring.config.import` and `spring.config.profiles.active` from the application file
+- Delete any property that has been migrated to the cloud config file
+- Set `spring.application.name` to the same value in the cloud config file. For example, for a file named `service.yml`
+set the property value to `service`
+- (?) Set `spring.profile.active` (to, "qa" or "prod") (didn't understand why? Isn't it dynamic?)
+- Add the Cloud Config Client dependency in the pom.xml
+- Add the Cloud dependency management to the pom.xml
+- Add `spring.config.import` property to the application file with value: `configserver:protocol://server:port`, 
+(e.g. `configserver:http://localhost:8071`)
 
 ## Docker
 

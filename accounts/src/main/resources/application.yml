@@ -1,26 +1,17 @@
 spring:
   application:
-    name: Accounts
+    name: accounts
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:accountsdb
-    username: sa
-    password: ''
   h2:
     console:
       enabled: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
   config:
-    import:
-      - "application_qa.yml"
-      - "application_prod.yml"
+    import: "configserver:http://localhost:8071"
   profiles:
     active: ""
 
@@ -36,16 +27,3 @@ h2:
   web:
     enabled: true
     port: 8083
-
-logging:
-  level:
-    org:
-      hibernate:
-        orm:
-          jdbc:
-            bind: trace
-
-build:
-  name: Accounts Service
-  version: d1
-  profile: DEFAULT
