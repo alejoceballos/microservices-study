@@ -482,7 +482,7 @@ Can be stored in:
   - ...
 - Remove all that is not necessary to externalize and it is not environment dependent
   - Also `spring.config.activate.on-profile` and `config.import` properties are no longer necessary
-- Add `spring.profiles.active=native` and `spring.cloud.config.server.native-search-locations="classpath:/config"` to 
+- Add `spring.profiles.active=native` and `spring.cloud.config.server.native.search-locations="classpath:/config-dir"` to 
 application (.properties or .yml)
 
 You can access the configuration through HTTP:
@@ -493,6 +493,11 @@ Example:
 ```
 http://localhost:8071/accounts/prod
 ```
+
+#### Filesystem config
+
+- Move all files to a path inside the server
+- Change `spring.cloud.config.server.native-search-locations` value for `file:///path//to//config//dir`
 
 #### Connecting to the services
 
