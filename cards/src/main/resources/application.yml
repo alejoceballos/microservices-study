@@ -17,6 +17,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active: ""
 
 server:
   servlet:
@@ -38,3 +44,8 @@ logging:
         orm:
           jdbc:
             bind: trace
+
+build:
+  name: Cards Service
+  version: d1
+  profile: DEFAULT

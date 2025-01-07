@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  name: Loans Service
+  version: q1
+  profile: QA

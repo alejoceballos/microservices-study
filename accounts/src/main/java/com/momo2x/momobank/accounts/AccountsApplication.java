@@ -1,12 +1,14 @@
 package com.momo2x.momobank.accounts;
 
 import com.momo2x.momobank.accounts.audit.AccountsAuditor;
+import com.momo2x.momobank.accounts.dto.BuildDto;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import static org.springframework.boot.SpringApplication.run;
@@ -31,6 +33,7 @@ import static org.springframework.boot.SpringApplication.run;
 		)
 )
 @EnableJpaAuditing(auditorAwareRef = AccountsAuditor.BEAN_NAME)
+@EnableConfigurationProperties(value = BuildDto.class)
 @SpringBootApplication
 public class AccountsApplication {
 

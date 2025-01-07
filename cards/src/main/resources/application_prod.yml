@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  name: Cards Service
+  version: p1
+  profile: PRODUCTION

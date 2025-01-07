@@ -7,56 +7,6 @@ My notes and code from https://www.udemy.com/course/master-microservices-with-sp
 
 **Table of Contents**
 
-<!-- TOC -->
-* [Microservices Study](#microservices-study)
-  * [Microservices](#microservices)
-    * [Important](#important)
-      * [Identifying Boundaries](#identifying-boundaries)
-  * [Communication](#communication-)
-    * [Notes regarding REST](#notes-regarding-rest)
-  * [Cloud Native](#cloud-native)
-    * [Cloud Native vs. Traditional Enterprise](#cloud-native-vs-traditional-enterprise)
-    * [Development Principles](#development-principles)
-      * [12/15-Factor methodology](#1215-factor-methodology)
-        * [Characteristics:](#characteristics)
-        * [Principles:](#principles)
-          * [1) 1 Code base, 1 Application](#1-1-code-base-1-application)
-          * [2) API first](#2-api-first)
-          * [3) Dependency management](#3-dependency-management)
-          * [4) Design, build, release, run](#4-design-build-release-run)
-          * [5) Configuration, credentials & code](#5-configuration-credentials--code)
-          * [6) Logs](#6-logs)
-          * [7) Disposability](#7-disposability)
-          * [8) Backing services](#8-backing-services)
-          * [9) Environment parity](#9-environment-parity)
-          * [10) Administrative processes](#10-administrative-processes)
-          * [11) Port binding](#11-port-binding-)
-          * [12) Stateless processes](#12-stateless-processes)
-          * [13) Concurrency](#13-concurrency)
-          * [14) Telemetry](#14-telemetry)
-          * [15) Authentication & Authorization](#15-authentication--authorization)
-  * [A Basic Spring Web Application](#a-basic-spring-web-application)
-    * [Layered Monolithic Architecture](#layered-monolithic-architecture)
-    * [H2 Database:](#h2-database)
-    * [Spring Rest Controller](#spring-rest-controller)
-    * [Using JPA](#using-jpa)
-    * [Using Lombok](#using-lombok)
-    * [Validators](#validators)
-    * [Auditing](#auditing)
-    * [API Documentation](#api-documentation)
-  * [Docker](#docker)
-    * [Containers vs. Virtual Machines](#containers-vs-virtual-machines)
-      * [NOTE! Using two OS simultaneously](#note-using-two-os-simultaneously)
-    * [Images & Container](#images--container)
-    * [Generating Docker Images:](#generating-docker-images)
-      * [Dockerfile](#dockerfile)
-      * [Buildpacks](#buildpacks)
-      * [Google Jib](#google-jib)
-      * [Comparison](#comparison)
-    * [Push images to Docker hub](#push-images-to-docker-hub)
-    * [Docker Compose](#docker-compose)
-    * [Docker Desktop extensions](#docker-desktop-extensions)
-<!-- TOC -->
 
 ## Microservices
 
@@ -101,18 +51,25 @@ absorbed by another one.
   * Identify commands from the events
   * Identify reactions from the commands
 
-## Communication 
+## Configuration Management
 
-- Synchronous messaging: Representational State Transfer (REST)
-- Asynchronous messaging:
-  - Queue managers (e.g. RabbitMQ, IBM MQ)
-  - Message broadcast managers (Kafka)
+How to:
+- Individualize config properties in order that multiple instances of the same service can be deployed in multiple envs?
+- Inject configuration values to the container according to its environment during start up or even on-the-fly?
+- How to centralize all config properties along its versions?
 
-### Notes regarding REST
+Solutions:
+- Use Spring Boot properties with profiles (not good, too limited)
+- Apply external configuration with Spring Boot (Also hard to maintain with multiple instances of a service)
+- Implement a Spring Cloud Config Server
 
-- Use verbs for CRUD operations (GET, POST, PUT, PATCH, DELETE, etc.)
-- Validate inputs and return proper HTTP error codes and messages
-- Document the API (Open API, Swagger, etc.)
+Considerations:
+- Security: 
+  - Access: people cannot have access to your configuration values
+  - Encryption 
+- History: Audit & Revision of configuration values
+- Easy to manage: Multiple services instances configuration management
+- Availability: On-the-fly configuration change
 
 ## Cloud Native
 
@@ -266,6 +223,19 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
   - Authorization: who has access to what
 - HTTPS, SSL certificates, Firewall: platform team responsibility 
 
+## Communication
+
+- Synchronous messaging: Representational State Transfer (REST)
+- Asynchronous messaging:
+  - Queue managers (e.g. RabbitMQ, IBM MQ)
+  - Message broadcast managers (Kafka)
+
+### Notes regarding REST
+
+- Use verbs for CRUD operations (GET, POST, PUT, PATCH, DELETE, etc.)
+- Validate inputs and return proper HTTP error codes and messages
+- Document the API (Open API, Swagger, etc.)
+
 ## A Basic Spring Web Application
 
 - Using Spring Initializer
@@ -284,6 +254,96 @@ Client (HTTP) -> Controller -> Service -> Repository -> Database
                    Mapper                JPA/Hibernate
 ```
 
+### Reading properties
+
+Go deeper on:
+```
+@Value
+environment.getProperty("...")
+@ConfigurationProperties
+```
+
+#### @ConfigurationProperties
+
+There are two ways of using Configuration Properties:
+
+(1) Configuration class with POJO and bean declaration
+```java
+@Configuration
+public class AccountsConfigProperties {
+    @Bean @ConfigurationProperties(prefix = "someprefix")
+    public PojoClass myBeanName() {
+        return new PojoClass();
+    }
+}
+```
+Pros:
+- Decoupled bean creation
+- No extra annotation needed
+
+Cons:
+- One more class to manage
+- Another bean to keep track
+
+(2) Annotated main class with annotated record
+
+```java
+@ConfigurationProperties(prefix = "someprefix")
+public record SimpleRecord(SomeType someAttribute) {
+}
+```
+```java
+@EnableConfigurationProperties(value = SimpleRecord.class)
+@SpringBootApplication
+public class AccountsApplication {
+	public static void main(String[] args) {
+		run(AccountsApplication.class, args);
+	}
+}
+```
+Pros:
+- No extra configuration class
+- No extra bean to manage
+- Use of records
+
+Cons:
+- Extra annotation in record and main class
+- Couples the record to the Spring framework
+
+### Profiles
+
+Create many application.properties (or .yml) with the following:
+
+```properties
+spring.config.activate.on-profile="<profile1>"
+spring.config.import="application_<profile1>.yml", "application_<profile2>.yml"
+```
+or
+```yaml
+spring:
+  config:
+    import:
+      - "application_<profile1>.yml"
+      - "application_<profile2>.yml"
+    activate:
+      on-profile: "<profile1>"
+```
+Example:
+- Default (empty): application.properties
+- QA: application_qa.properties
+- Production: application_prod.properties
+
+**NOTE!** Put in the main "application" file everything that is shared between profiles amd the default values for a 
+development environment. In other files, put only what is specific for the environment, there is no need to repeat the 
+same values that are already defined in the main "application" file.
+
+#### Activating a profile
+
+- (Not recommended) Can set the following property in applications (properties or yml): `spring.profiles.active`.
+- Use command-line arguments (by precedence):
+  - Normal command-line args: `java -jar my-application-service.jar --spring.profiles.active="<profile>"`
+  - Use environment variable (linux): `SPRING_PROFILES_ACTIVE="<profile>" java -jar my-application-service.jar`
+ 
 ### H2 Database:
 
 Creating a "schema.sql" file under "main/resources", H2 will create the tables when starting up.
@@ -396,6 +456,10 @@ Go deeper on:
   
 @Schema
 ```
+
+## Spring Cloud Config
+
+TBD
 
 ## Docker
 

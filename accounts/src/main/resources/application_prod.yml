@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  name: Accounts Service
+  version: p1
+  profile: PRODUCTION
