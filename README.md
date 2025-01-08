@@ -265,7 +265,7 @@ environment.getProperty("...")
 
 #### @ConfigurationProperties
 
-There are two ways of using Configuration Properties:
+There are 3 ways of using Configuration Properties:
 
 (1) Configuration class with POJO and bean declaration
 ```java
@@ -280,6 +280,7 @@ public class AccountsConfigProperties {
 Pros:
 - Decoupled bean creation
 - No extra annotation needed
+- Allows changing values in runtime
 
 Cons:
 - One more class to manage
@@ -309,6 +310,30 @@ Pros:
 Cons:
 - Extra annotation in record and main class
 - Couples the record to the Spring framework
+- Does not allow changing values in runtime
+
+(3) Annotated main class with annotated pojo
+
+```java
+@Getter
+@Setter
+@ConfigurationProperties(prefix = "someprefix")
+public class SimpleClass {
+  private SomeType someAttribute;
+}
+```
+```java
+@EnableConfigurationProperties(value = SimpleClass.class)
+@SpringBootApplication
+public class AccountsApplication {
+	public static void main(String[] args) {
+		run(AccountsApplication.class, args);
+	}
+}
+```
+Pros:
+- Same as approach (2), without the use of records
+- Same as approach (2), but allows changing values in runtime
 
 ### Profiles
 
@@ -474,6 +499,9 @@ Can be stored in:
 
 ### Configuration
 
+For the full detail, check:
+- https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_environment_repository
+
 #### Classpath config
 
 - Multiple configs per service (.properties or .yml). Note, use "-" (hyphen), not "_" (underscore).
@@ -498,6 +526,24 @@ http://localhost:8071/accounts/prod
 
 - Move all files to a path inside the server
 - Change `spring.cloud.config.server.native-search-locations` value for `file:///path//to//config//dir`
+
+
+#### Git config
+
+- Move all files to a new git repository (ex: config-repository)
+- Change `spring.profiles` to `git`
+- Add `spring.cloud.config.server.git.uri` to `"git@github.com:username/config-repository.git"`
+- Add `spring.cloud.config.server.git.passphrase` to `"<user-passphrase>"` (do not commit this to a public repository!)
+  - In the future, I will use a private and public key or some other type of more secure authentication
+- Add `spring.cloud.config.server.git.default-label` to `main`
+- Add `spring.cloud.config.server.git.clone-on-start` to `true`
+- Add `spring.cloud.config.server.git.force-pull` to `true`
+
+#### Using actuator: refresh config "on-the-fly"
+
+- Have actuator dependency
+- Have a mutable configuration class (see [@configurationproperties](#configurationproperties))
+- Set `management.endpoints.web.exposure.include="*"` config property (expose all endpoints managed by actuator)
 
 #### Connecting to the services
 

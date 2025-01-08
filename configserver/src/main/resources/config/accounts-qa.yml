@@ -1,4 +1,0 @@
-build:
-  name: Accounts Service
-  version: q1
-  profile: QA

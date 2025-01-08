@@ -15,6 +15,12 @@ spring:
   profiles:
     active: ""
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 server:
   servlet:
     context-path: /api

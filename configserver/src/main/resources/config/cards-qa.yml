@@ -1,4 +1,0 @@
-build:
-  name: Cards Service
-  version: q1
-  profile: QA
