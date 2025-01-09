@@ -7,6 +7,73 @@ My notes and code from https://www.udemy.com/course/master-microservices-with-sp
 
 **Table of Contents**
 
+<!-- TOC -->
+* [Microservices Study](#microservices-study)
+  * [Microservices](#microservices)
+    * [Important](#important)
+      * [Identifying Boundaries](#identifying-boundaries)
+  * [Configuration Management](#configuration-management)
+  * [Cloud Native](#cloud-native)
+    * [Cloud Native vs. Traditional Enterprise](#cloud-native-vs-traditional-enterprise)
+    * [Development Principles](#development-principles)
+      * [12/15-Factor methodology](#1215-factor-methodology)
+        * [Characteristics:](#characteristics)
+        * [Principles:](#principles)
+          * [1) 1 Code base, 1 Application](#1-1-code-base-1-application)
+          * [2) API first](#2-api-first)
+          * [3) Dependency management](#3-dependency-management)
+          * [4) Design, build, release, run](#4-design-build-release-run)
+          * [5) Configuration, credentials & code](#5-configuration-credentials--code)
+          * [6) Logs](#6-logs)
+          * [7) Disposability](#7-disposability)
+          * [8) Backing services](#8-backing-services)
+          * [9) Environment parity](#9-environment-parity)
+          * [10) Administrative processes](#10-administrative-processes)
+          * [11) Port binding](#11-port-binding-)
+          * [12) Stateless processes](#12-stateless-processes)
+          * [13) Concurrency](#13-concurrency)
+          * [14) Telemetry](#14-telemetry)
+          * [15) Authentication & Authorization](#15-authentication--authorization)
+  * [Communication](#communication)
+    * [Notes regarding REST](#notes-regarding-rest)
+  * [A Basic Spring Web Application](#a-basic-spring-web-application)
+    * [Layered Monolithic Architecture](#layered-monolithic-architecture)
+    * [Reading properties](#reading-properties)
+      * [@ConfigurationProperties](#configurationproperties)
+    * [Profiles](#profiles)
+      * [Activating a profile](#activating-a-profile)
+    * [H2 Database:](#h2-database)
+    * [Spring Rest Controller](#spring-rest-controller)
+    * [Using JPA](#using-jpa)
+    * [Using Lombok](#using-lombok)
+    * [Validators](#validators)
+    * [Auditing](#auditing)
+    * [API Documentation](#api-documentation)
+  * [Spring Cloud Config](#spring-cloud-config)
+    * [Configuration](#configuration)
+      * [Classpath config](#classpath-config)
+      * [Filesystem config](#filesystem-config)
+      * [Git config](#git-config)
+      * [Using actuator: refresh config "on-the-fly"](#using-actuator-refresh-config-on-the-fly)
+      * [Connecting to the services](#connecting-to-the-services)
+      * [Using a Message broker](#using-a-message-broker)
+    * [A Complete Local / Remote Cloud Configuration](#a-complete-local--remote-cloud-configuration)
+  * [Docker](#docker)
+    * [Containers vs. Virtual Machines](#containers-vs-virtual-machines)
+      * [NOTE! Using two OS simultaneously](#note-using-two-os-simultaneously)
+    * [Images & Container](#images--container)
+    * [Generating Docker Images:](#generating-docker-images)
+      * [Dockerfile](#dockerfile)
+      * [Buildpacks](#buildpacks)
+      * [Google Jib](#google-jib)
+      * [Comparison](#comparison)
+    * [Push images to Docker hub](#push-images-to-docker-hub)
+    * [Docker Compose](#docker-compose)
+    * [Docker Desktop extensions](#docker-desktop-extensions)
+  * [RabbitMQ](#rabbitmq)
+  * [Git Webhooks](#git-webhooks)
+    * [Hookdeck](#hookdeck)
+<!-- TOC -->
 
 ## Microservices
 
@@ -70,6 +137,9 @@ Considerations:
 - History: Audit & Revision of configuration values
 - Easy to manage: Multiple services instances configuration management
 - Availability: On-the-fly configuration change
+
+Example (using a Message Broker and GitHub repository:
+![Config Management](README.files/Config-Management.png "Config Management")
 
 ## Cloud Native
 
@@ -484,6 +554,8 @@ Go deeper on:
 
 ## Spring Cloud Config
 
+![Spring Cloud Config](README.files/Config-Management.png "Spring Cloud Config")
+
 Go deeper on:
 ```
 @EnableConfigServer
@@ -502,6 +574,36 @@ Can be stored in:
 For the full detail, check:
 - https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_environment_repository
 
+For all services (config also):
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-config</artifactId>
+</dependency>
+```
+
+For automatic config refresh (all):
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+For the config server:
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${spring-cloud.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
 #### Classpath config
 
 - Multiple configs per service (.properties or .yml). Note, use "-" (hyphen), not "_" (underscore).
@@ -526,7 +628,6 @@ http://localhost:8071/accounts/prod
 
 - Move all files to a path inside the server
 - Change `spring.cloud.config.server.native-search-locations` value for `file:///path//to//config//dir`
-
 
 #### Git config
 
@@ -558,6 +659,14 @@ set the property value to `service`
 - Add the Cloud dependency management to the pom.xml
 - Add `spring.config.import` property to the application file with value: `configserver:protocol://server:port`, 
 (e.g. `configserver:http://localhost:8071`)
+
+#### Using a Message broker
+
+TBD
+
+### A Complete Local / Remote Cloud Configuration
+
+![Cloud configuration with Message Broker, GithHub webhooks and a Hookdeck bridge](README.files/Functional-Config-Architecture.png)
 
 ## Docker
 
@@ -634,3 +743,52 @@ docker image push docker.io/username/imagename:tag
 
 - Logs Explorer
 
+## RabbitMQ
+
+Check [RabbitMQ download page](https://www.rabbitmq.com/docs/download) for the latest versions.
+
+From the time of this writing:
+```shell
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
+```
+
+## Git Webhooks
+
+In the Config Repo:
+- Click on "Settings" in the top menu
+- Click on "Webhooks" on the left panel
+- Click on the "Add webhook" button
+- Fill:
+  - Payload URL: The one provided by Hookdeck CLI
+
+### Hookdeck
+
+Used to use webhooks locally
+
+1. Go to "https://hookdeck.com/"
+2. Click on "Developer menu
+3. Under "SDK & Tools", click on "Hookdeck Console"
+4. Click on the button at the top: "Add Destination"
+5. On the right panel, "Destination Settings", click on "Localhost" tab
+6. Follow the steps to install and run it
+
+(?) Do I have to run this everytime?
+```shell
+hookdeck login --cli-key 647oehcae04o7x2jwqfgv2ffmzc817xxh97owpcqgl8fpk42zy
+hookdeck listen 8071 Source --cli-path /monitor
+```
+The result must be something similar to:
+```
+Dashboard
+👉 Inspect and replay events: https://dashboard.hookdeck.com
+
+Sources
+🔌 Source URL: https://hkdk.events/hpr1yesq0a3bqf
+
+Connections
+Source -> Source_to_cli-Source forwarding to /monitor
+
+> Ready! (^C to quit)
+```
+
+Copy the Source URL to be used as your Payload URL for the GitHub webhook. 
