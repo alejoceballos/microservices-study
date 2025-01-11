@@ -554,8 +554,6 @@ Go deeper on:
 
 ## Spring Cloud Config
 
-![Spring Cloud Config](README.files/Config-Management.png "Spring Cloud Config")
-
 Go deeper on:
 ```
 @EnableConfigServer
@@ -633,12 +631,14 @@ http://localhost:8071/accounts/prod
 
 - Move all files to a new git repository (ex: config-repository)
 - Change `spring.profiles` to `git`
-- Add `spring.cloud.config.server.git.uri` to `"git@github.com:username/config-repository.git"`
-- Add `spring.cloud.config.server.git.passphrase` to `"<user-passphrase>"` (do not commit this to a public repository!)
-  - In the future, I will use a private and public key or some other type of more secure authentication
+- Add `spring.cloud.config.server.git.uri` to `"https://github.com/alejoceballos/microservices-study.git"`
+  - In the future, I will use a private and public key or some other type of authentication
 - Add `spring.cloud.config.server.git.default-label` to `main`
 - Add `spring.cloud.config.server.git.clone-on-start` to `true`
 - Add `spring.cloud.config.server.git.force-pull` to `true`
+
+References:
+- [Spring: Git Backend](https://docs.spring.io/spring-cloud-config/reference/server/environment-repository/git-backend.html#skipping-ssl-certificate-validation)
 
 #### Using actuator: refresh config "on-the-fly"
 
@@ -666,7 +666,7 @@ TBD
 
 ### A Complete Local / Remote Cloud Configuration
 
-![Cloud configuration with Message Broker, GithHub webhooks and a Hookdeck bridge](README.files/Functional-Config-Architecture.png)
+![Cloud configuration with Message Broker, GitHub webhooks and a Hookdeck bridge](README.files/Functional-Config-Architecture.png)
 
 ## Docker
 
@@ -715,6 +715,32 @@ seems to be a more complete tool than the next one, Google Jib.
 2. Create your image (`mvn spring-boot:build-image`)
 3. Run your container (`docker run`)
 
+```xml
+.
+.
+.
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <image>
+            <name>alejoceballos/ms_study_${project.artifactId}:v1</name>
+            <builder>paketobuildpacks/builder-jammy-base</builder>
+            <runImage>buildpack-deps:jammy-curl</runImage>
+        </image>
+    </configuration>
+</plugin>
+.
+.
+.
+```
+**NOTE:** This approach didn't work with health monitoring since the container does not come with curl installed
+
+```shell
+mvn spring-boot:build-image -DskipTests
+```
+**NOTE:** Use "skip tests" if the config is not ready to mock rabbit mq or any external dependency
+
 #### Google Jib
 
 Faster than Buildpacks. Need to add a plugin to pom.xml.
@@ -722,6 +748,29 @@ Faster than Buildpacks. Need to add a plugin to pom.xml.
 1. Edit `pom.xml`, add `jib-maven-plugin`
 2. Create your image (`mvn compile jib:dockerBuild`)
 3. Run your container (`docker run`)
+
+```xml
+.
+.
+.
+<plugin>
+    <groupId>com.google.cloud.tools</groupId>
+    <artifactId>jib-maven-plugin</artifactId>
+    <version>3.4.4</version>
+    <configuration>
+        <to>
+            <image>alejoceballos/ms_study_${project.artifactId}:v1</image>
+        </to>
+    </configuration>
+</plugin>
+.
+.
+.
+```
+```shell
+mvn compile jib:dockerBuild -DskipTests
+```
+**NOTE:** Use "skip tests" if the config is not ready to mock rabbit mq or any external dependency
 
 #### Comparison
 
@@ -774,7 +823,7 @@ Used to use webhooks locally
 
 (?) Do I have to run this everytime?
 ```shell
-hookdeck login --cli-key 647oehcae04o7x2jwqfgv2ffmzc817xxh97owpcqgl8fpk42zy
+hookdeck login --cli-key <hookdeck-key>
 hookdeck listen 8071 Source --cli-path /monitor
 ```
 The result must be something similar to:

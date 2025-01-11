@@ -71,6 +71,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+<!--                <configuration>-->
+<!--                    <image>-->
+<!--                        <name>alejoceballos/ms_study_${project.artifactId}:v1</name>-->
+<!--                        <builder>paketobuildpacks/builder-jammy-base</builder>-->
+<!--                        <runImage>buildpack-deps:jammy-curl</runImage>-->
+<!--                    </image>-->
+<!--                </configuration>-->
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.4</version>
+                <configuration>
+                    <to>
+                        <image>alejoceballos/ms_study_${project.artifactId}:v1</image>
+                    </to>
+                </configuration>
             </plugin>
         </plugins>
     </build>
