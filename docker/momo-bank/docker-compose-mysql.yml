@@ -1,0 +1,29 @@
+services:
+  # Check: https://github.com/abagayev/docker-bootstrap-collection/tree/master/mysql-few-databases
+  mysqldb:
+    image: mysql:9.1.0
+    container_name: mysqldb
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./provision/mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysql", "-u", "root", "-proot", "--execute", "SHOW DATABASES;"]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
+networks:
+  momobank-network:
+    name: momobank-network
+    driver: bridge
+
+volumes:
+  momobank-db-volume:
+    driver: local

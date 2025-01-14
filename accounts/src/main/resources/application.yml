@@ -1,19 +1,28 @@
+server:
+  servlet:
+    context-path: /api
+  port: 8080
+
 spring:
   application:
-    name: accounts
-  datasource:
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
-  config:
-    import: "optional:configserver:http://localhost:8071"
+    name: "accounts"
   profiles:
     active: ""
+  datasource:
+    url: jdbc:mysql://localhost:3306/accountsdb
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  # `spring.sql.init.mode` will run `resources/schema.sql`
+  sql:
+    init:
+      mode: always
+  config:
+    import: "configserver:http://localhost:8071/"
   rabbitmq:
     host: localhost
     port: 5672
@@ -26,15 +35,10 @@ management:
       exposure:
         include: "*"
 
-server:
-  servlet:
-    context-path: /api
-  port: 8080
-
-h2:
-  tcp:
-    enabled: true
-    port: 9090
-  web:
-    enabled: true
-    port: 8083
+logging:
+  level:
+    org:
+      hibernate:
+        orm:
+          jdbc:
+            bind: trace

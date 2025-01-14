@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: "rabbitmq:4.0-management"
+    image: rabbitmq:4.0-management
     hostname: rabbitmq
     ports:
       - "5672:5672"
@@ -15,8 +15,28 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+  # Check: https://github.com/abagayev/docker-bootstrap-collection/tree/master/mysql-few-databases
+  mysqldb:
+    image: mysql:9.1.0
+    container_name: mysqldb
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./provision/mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysql", "-u", "root", "-proot", "--execute", "SHOW DATABASES;"]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   configserver:
-    image: "alejoceballos/ms_study_configserver:v1"
+    image: alejoceballos/ms_study_configserver:v1
     container_name: configserver
     ports:
       - "8071:8071"
@@ -34,34 +54,40 @@ services:
       service: microservices-base-config
 
   accounts:
-    image: "alejoceballos/ms_study_accounts:v1"
+    image: alejoceballos/ms_study_accounts:v1
     container_name: accounts
     ports:
       - "8080:8080"
       - "9090:9090"
       - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/accountsdb
     extends:
       file: common-config.yml
       service: microservices-configserver-config
 
   cards:
-    image: "alejoceballos/ms_study_cards:v1"
+    image: alejoceballos/ms_study_cards:v1
     container_name: cards
     ports:
       - "8081:8081"
       - "9091:9091"
       - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/cardsdb
     extends:
       file: common-config.yml
       service: microservices-configserver-config
 
   loans:
-    image: "alejoceballos/ms_study_loans:v1"
+    image: alejoceballos/ms_study_loans:v1
     container_name: loans
     ports:
       - "8082:8082"
       - "9092:9092"
       - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/loansdb
     extends:
       file: common-config.yml
       service: microservices-configserver-config
@@ -70,3 +96,7 @@ networks:
   momobank-network:
     name: momobank-network
     driver: bridge
+
+volumes:
+  momobank-db-volume:
+    driver: local

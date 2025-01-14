@@ -1,0 +1,4 @@
+-- create databases
+CREATE DATABASE IF NOT EXISTS `accountsdb`;
+CREATE DATABASE IF NOT EXISTS `cardsdb`;
+CREATE DATABASE IF NOT EXISTS `loansdb`;

@@ -1,0 +1,25 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
+networks:
+  momobank-network:
+    name: momobank-network
+    driver: bridge
+
+volumes:
+  momobank-db-volume:
+    driver: local

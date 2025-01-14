@@ -7,7 +7,7 @@ services:
     extends:
       service: network-deploy-service
     environment:
-      SPRING_RABBITMQ_HOST: "rabbitmq"
+      SPRING_RABBITMQ_HOST: rabbitmq
     deploy:
       resources:
         limits:
@@ -17,8 +17,11 @@ services:
     extends:
       service: microservices-base-config
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071"
-      SPRING_PROFILES_ACTIVE: default
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     depends_on:
       configserver:
+        condition: service_healthy
+      mysqldb:
         condition: service_healthy

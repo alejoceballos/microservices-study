@@ -1,3 +1,6 @@
+server:
+  port: 8071
+
 spring:
   application:
     name: "configserver"
@@ -7,12 +10,11 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/alejoceballos/microservices-study.git
+          uri: "https://github.com/alejoceballos/microservices-study.git"
           default-label: main
-          timeout: 6
+          timeout: 5
           clone-on-start: true
           force-pull: true
-          skip-ssl-validation: true
   rabbitmq:
     host: localhost
     port: 5672
@@ -33,6 +35,3 @@ management:
     health:
       probes:
         enabled: true
-
-server:
-  port: 8071
