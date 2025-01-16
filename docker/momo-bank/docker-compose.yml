@@ -1,23 +1,23 @@
 services:
-  rabbitmq:
-    image: rabbitmq:4.0-management
-    hostname: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    healthcheck:
-      test: rabbitmq-diagnostics check_port_connectivity
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-    extends:
-      file: common-config.yml
-      service: network-deploy-service
+#  rabbitmq:
+#    image: rabbitmq:4.0-management
+#    hostname: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    healthcheck:
+#      test: rabbitmq-diagnostics check_port_connectivity
+#      interval: 10s
+#      timeout: 5s
+#      retries: 3
+#      start_period: 5s
+#    extends:
+#      file: common-config.yml
+#      service: network-deploy-service
 
   # Check: https://github.com/abagayev/docker-bootstrap-collection/tree/master/mysql-few-databases
   mysqldb:
-    image: mysql:9.1.0
+    image: "mysql:9.1.0"
     container_name: mysqldb
     ports:
       - "3306:3306"
@@ -36,13 +36,13 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: alejoceballos/ms_study_configserver:v1
+    image: "alejoceballos/ms_study_configserver:v1"
     container_name: configserver
     ports:
       - "8071:8071"
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
+#    depends_on:
+#      rabbitmq:
+#        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
@@ -53,6 +53,21 @@ services:
       file: common-config.yml
       service: microservices-base-config
 
+  eurekaserver:
+    image: "alejoceballos/ms_study_eurekaserver:v1"
+    container_name: eurekaserver
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservices-configserver-config
+
   accounts:
     image: alejoceballos/ms_study_accounts:v1
     container_name: accounts
@@ -61,10 +76,10 @@ services:
       - "9090:9090"
       - "8084:8084"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/accountsdb
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/accountsdb"
     extends:
       file: common-config.yml
-      service: microservices-configserver-config
+      service: microservices-eureka-config
 
   cards:
     image: alejoceballos/ms_study_cards:v1
@@ -74,10 +89,10 @@ services:
       - "9091:9091"
       - "8085:8085"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/cardsdb
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/cardsdb"
     extends:
       file: common-config.yml
-      service: microservices-configserver-config
+      service: microservices-eureka-config
 
   loans:
     image: alejoceballos/ms_study_loans:v1
@@ -87,10 +102,10 @@ services:
       - "9092:9092"
       - "8086:8086"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/loansdb
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/loansdb"
     extends:
       file: common-config.yml
-      service: microservices-configserver-config
+      service: microservices-eureka-config
 
 networks:
   momobank-network:

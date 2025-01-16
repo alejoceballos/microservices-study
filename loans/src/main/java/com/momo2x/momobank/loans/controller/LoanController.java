@@ -13,7 +13,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,18 +27,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_PATTERN;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_IS_INVALID;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_IS_MANDATORY;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_LENGTH_RANGE;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_MAX;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_MIN;
+import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_PATTERN;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Tag(
-        name = "Loans API",
-        description = "Loans operations"
-)
+@Tag(name = "Loans API", description = "Loans operations")
+@Slf4j
 @RequiredArgsConstructor
+@Validated
 @RestController
 @RequestMapping(value = "/v1/loans", produces = {APPLICATION_JSON_VALUE})
-@Validated
 public class LoanController {
 
     private final LoanService loanService;
@@ -63,15 +75,20 @@ public class LoanController {
     })
     @PostMapping
     public ResponseEntity<ResponseDto<LoanDto>> create(
-            @NotBlank(message = "Mobile Number can not be a null or empty")
-            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile Number must be 10 digits")
+            @NotBlank(message = MOBILE_IS_MANDATORY)
+            @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
+            @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
             @RequestParam final String mobileNumber
     ) {
+        final var  created = loanService.create(mobileNumber);
+
+        log.debug("Created {}", created);
+
         return ResponseEntity
                 .status(CREATED)
                 .body(new ResponseDto<>(
                         "Loan created",
-                        loanService.create(mobileNumber)));
+                        created));
     }
 
     @Operation(
@@ -92,16 +109,19 @@ public class LoanController {
             )
     })
     @GetMapping
-    public ResponseEntity<ResponseDto<LoanDto>> findByMobileNumber(
-            @NotBlank(message = "Mobile Number can not be a null or empty")
-            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile Number must be 10 digits")
+    public ResponseEntity<LoanDto> findByMobileNumber(
+            @NotBlank(message = MOBILE_IS_MANDATORY)
+            @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
+            @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
             @RequestParam final String mobileNumber
     ) {
+        final var loan = loanService.findByMobileNumber(mobileNumber);
+
+        log.debug("Found {}", loan);
+
         return ResponseEntity
                 .status(OK)
-                .body(new ResponseDto<>(
-                        "Loan retrieved",
-                        loanService.findByMobileNumber(mobileNumber)));
+                .body(loan);
     }
 
     @Operation(
@@ -126,11 +146,15 @@ public class LoanController {
             @Valid
             @RequestBody final LoanDto loan
     ) {
+        final var updated = loanService.update(loan);
+
+        log.debug("Updated {}", updated);
+
         return ResponseEntity
                 .status(OK)
                 .body(new ResponseDto<>(
                         "Loan updated",
-                        loanService.update(loan)));
+                        updated));
     }
 
     @Operation(
@@ -152,8 +176,9 @@ public class LoanController {
     })
     @DeleteMapping("/{loanNumber}")
     public ResponseEntity<String> delete(
-            @NotBlank(message = "Loan number can not be a null or empty")
-            @Pattern(regexp = "(^$|[0-9]{12})", message = "Loan number must be 12 digits")
+            @NotBlank(message = LOAN_NUMBER_IS_MANDATORY)
+            @Size(min = LOAN_NUMBER_MIN, max = LOAN_NUMBER_MAX, message = LOAN_NUMBER_LENGTH_RANGE)
+            @Pattern(regexp = LOAN_NUMBER_PATTERN, message = LOAN_NUMBER_IS_INVALID)
             @RequestParam final String loanNumber
     ) {
         loanService.deleteByLoanNumber(loanNumber);

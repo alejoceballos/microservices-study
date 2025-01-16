@@ -5,53 +5,62 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
-@Schema(
-        name = "Card",
-        description = "Card information"
-)
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_AMOUNT_USED_RANGE;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_AVAILABLE_AMOUNT_RANGE;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_LIMIT_RANGE;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_NUMBER_IS_INVALID;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_NUMBER_IS_MANDATORY;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_NUMBER_LENGTH_RANGE;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_NUMBER_MAX;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_NUMBER_MIN;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_NUMBER_PATTERN;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_TYPE_IS_MANDATORY;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_TYPE_LENGTH_RANGE;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_TYPE_MAX;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Card.CARD_TYPE_MIN;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.cards.constants.CardsConstants.Customer.MOBILE_PATTERN;
+
+@Schema(name = "Card", description = "Card information")
 @Data
 @Builder
 public class CardDto {
 
-    @NotBlank(message = "Mobile Number can not be a null or empty")
-    @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile Number must be 10 digits")
-    @Schema(
-            description = "Mobile Number of Customer", example = "4354437687"
-    )
+    @Schema(description = "Mobile Number of Customer", example = "4354437687")
+    @NotBlank(message = MOBILE_IS_MANDATORY)
+    @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
+    @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
     private String mobileNumber;
 
-    @NotBlank(message = "Card Number can not be a null or empty")
-    @Pattern(regexp="(^$|[0-9]{12})",message = "CardNumber must be 12 digits")
-    @Schema(
-            description = "Card Number of the customer", example = "100646930341"
-    )
+    @Schema(description = "Card Number of the customer", example = "100646930341")
+    @NotBlank(message = CARD_NUMBER_IS_MANDATORY)
+    @Size(min = CARD_NUMBER_MIN, max = CARD_NUMBER_MAX, message = CARD_NUMBER_LENGTH_RANGE)
+    @Pattern(regexp = CARD_NUMBER_PATTERN, message = CARD_NUMBER_IS_INVALID)
     private String cardNumber;
 
-    @NotBlank(message = "CardType can not be a null or empty")
-    @Schema(
-            description = "Type of the card", example = "Credit Card"
-    )
+    @Schema(description = "Type of the card", example = "Credit Card")
+    @NotBlank(message = CARD_TYPE_IS_MANDATORY)
+    @Size(min = CARD_TYPE_MIN, max = CARD_TYPE_MAX, message = CARD_TYPE_LENGTH_RANGE)
     private String cardType;
 
-    @Positive(message = "Total card limit should be greater than zero")
-    @Schema(
-            description = "Total amount limit available against a card", example = "100000"
-    )
+    @Schema(description = "Total amount limit available against a card", example = "100000")
+    @Positive(message = CARD_LIMIT_RANGE)
     private int totalLimit;
 
-    @PositiveOrZero(message = "Total amount used should be equal or greater than zero")
-    @Schema(
-            description = "Total amount used by a Customer", example = "1000"
-    )
+    @Schema(description = "Total amount used by a Customer", example = "1000")
+    @PositiveOrZero(message = CARD_AMOUNT_USED_RANGE)
     private int amountUsed;
 
-    @PositiveOrZero(message = "Total available amount should be equal or greater than zero")
-    @Schema(
-            description = "Total available amount against a card", example = "90000"
-    )
+    @Schema(description = "Total available amount against a card", example = "90000")
+    @PositiveOrZero(message = CARD_AVAILABLE_AMOUNT_RANGE)
     private int availableAmount;
 
 }

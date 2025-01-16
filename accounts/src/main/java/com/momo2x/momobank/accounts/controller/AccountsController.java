@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,28 +32,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.momo2x.momobank.accounts.dto.AccountDto.NUMBER_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.dto.AccountDto.NUMBER_MAX;
-import static com.momo2x.momobank.accounts.dto.AccountDto.NUMBER_MIN;
-import static com.momo2x.momobank.accounts.dto.AccountDto.NUMBER_RANGE;
-import static com.momo2x.momobank.accounts.dto.CustomerDto.MOBILE_IS_INVALID;
-import static com.momo2x.momobank.accounts.dto.CustomerDto.MOBILE_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.dto.CustomerDto.MOBILE_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.dto.CustomerDto.MOBILE_MAX;
-import static com.momo2x.momobank.accounts.dto.CustomerDto.MOBILE_MIN;
-import static com.momo2x.momobank.accounts.dto.CustomerDto.MOBILE_PATTERN;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_MAX;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_MIN;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_RANGE;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_PATTERN;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Tag(
-        name = "Accounts API",
-        description = "Customers and Accounts operations"
-)
+@Slf4j
+@Tag(name = "Accounts API", description = "Customers and Accounts operations")
 @RequiredArgsConstructor
+@Validated
 @RestController
 @RequestMapping(value = "/v1/accounts", produces = {APPLICATION_JSON_VALUE})
-@Validated
 public class AccountsController {
 
     private final AccountService accountService;
@@ -82,11 +81,15 @@ public class AccountsController {
             @Valid
             @RequestBody final CustomerDto customer
     ) {
+        final var created = accountService.create(customer);
+
+        log.debug("Created {}", created);
+
         return ResponseEntity
                 .status(CREATED)
                 .body(new ResponseDto<>(
                         "Account created",
-                        accountService.create(customer)));
+                        created));
     }
 
     @Operation(
@@ -108,20 +111,21 @@ public class AccountsController {
     })
     @GetMapping
     public ResponseEntity<ResponseDto<AccountDto>> findByMobileNumber(
-            @Schema(
-                    description = "Customer's mobile number",
-                    example = "+999836000801"
-            )
+            @Schema(description = "Customer's mobile number", example = "+999836000801")
             @NotBlank(message = MOBILE_IS_MANDATORY)
             @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
             @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
             @RequestParam final String mobileNumber
     ) {
+        final var account = accountService.findByCustomerMobileNumber(mobileNumber);
+
+        log.debug("Found {}", account);
+
         return ResponseEntity
                 .status(OK)
                 .body(new ResponseDto<>(
                         "Account retrieved",
-                        accountService.findByCustomerMobileNumber(mobileNumber)));
+                        account));
     }
 
     @Operation(
@@ -146,11 +150,15 @@ public class AccountsController {
             @Valid
             @RequestBody final AccountDto account
     ) {
+        final var updated = accountService.update(account);
+
+        log.debug("Updated {}", updated);
+
         return ResponseEntity
                 .status(OK)
                 .body(new ResponseDto<>(
                         "Account updated",
-                        accountService.update(account)));
+                        updated));
     }
 
     @Operation(

@@ -24,11 +24,10 @@ import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.
 import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.NAME_MAX;
 import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.NAME_MIN;
 
-@Schema(name = "Customer", description = "Customer information")
+@Schema(name = "CustomerDetails", description = "Schema to hold Customer, Account, Cards and Loans information")
 @Data
 @Builder
-public class CustomerDto {
-
+public class CustomerDetailsDto {
 
     @Schema(description = "Customer's full name", example = "John Doe da Silva")
     @NotBlank(message = NAME_IS_MANDATORY)
@@ -46,5 +45,14 @@ public class CustomerDto {
     @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
     @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
     private String mobileNumber;
+
+    @Schema(description = "Account details of the Customer")
+    private AccountDto accountDto;
+
+    @Schema(description = "Loans details of the Customer")
+    private LoanDto loanDto;
+
+    @Schema(description = "Cards details of the Customer")
+    private CardDto cardDto;
 
 }

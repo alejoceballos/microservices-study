@@ -1,13 +1,19 @@
 package com.momo2x.momobank.accounts.service;
 
+import com.momo2x.momobank.accounts.dto.CustomerDetailsDto;
 import com.momo2x.momobank.accounts.dto.CustomerDto;
+import com.momo2x.momobank.accounts.entity.Account;
 import com.momo2x.momobank.accounts.entity.Customer;
 import com.momo2x.momobank.accounts.exception.ResourceAlreadyExistsException;
+import com.momo2x.momobank.accounts.repository.AccountRepository;
 import com.momo2x.momobank.accounts.repository.CustomerRepository;
+import com.momo2x.momobank.accounts.service.client.CardsClient;
+import com.momo2x.momobank.accounts.service.client.LoansClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static com.momo2x.momobank.accounts.exception.ResourceNotFoundException.notFoundExceptionSupplier;
+import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
 @Service
@@ -15,7 +21,14 @@ import static java.lang.String.valueOf;
 public class CustomerService {
 
     private final CustomerMapper customerMapper;
+    private final AccountMapper accountMapper;
+    private final CustomerDetailsMapper customerDetailsMapper;
+
     private final CustomerRepository customerRepository;
+    private final AccountRepository accountRepository;
+
+    private final CardsClient cardsClient;
+    private final LoansClient loansClient;
 
     public Customer create(final CustomerDto customerDto) {
         if (customerRepository.findByMobileNumber(customerDto.getMobileNumber()).isPresent()) {
@@ -64,6 +77,33 @@ public class CustomerService {
 
     public void deleteById(final Long id) {
         customerRepository.deleteById(id);
+    }
+
+    public CustomerDetailsDto findCustomerDetailsByMobileNumber(final String mobileNumber) {
+        final var customer = customerRepository
+                .findByMobileNumber(mobileNumber)
+                .orElseThrow(notFoundExceptionSupplier(
+                        Customer.class,
+                        format("mobile number %s", mobileNumber)));
+
+        final var account = accountRepository
+                .findByCustomerId(customer.getCustomerId())
+                .orElseThrow(
+                        notFoundExceptionSupplier(
+                                Account.class,
+                                format("customer's mobile number %s", mobileNumber)));
+
+        final var customerDetailsDto = customerDetailsMapper.toDto(customer);
+        customerDetailsDto.setAccountDto(accountMapper.toDto(account));
+
+        final var loansDtoResponseEntity = loansClient.findByMobileNumber(mobileNumber);
+        customerDetailsDto.setLoanDto(loansDtoResponseEntity.getBody());
+
+        final var cardsDtoResponseEntity = cardsClient.findByMobileNumber(mobileNumber);
+        customerDetailsDto.setCardDto(cardsDtoResponseEntity.getBody());
+
+        return customerDetailsDto;
+
     }
 
 }
