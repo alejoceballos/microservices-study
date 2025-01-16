@@ -18,9 +18,9 @@ docker_clear() {
   fi
 
   if [[ "$1" = "all" ]]; then
-    docker container stop eurekaserver
-    docker container rm eurekaserver
-    docker image rm alejoceballos/ms_study_eurekaserver:v1
+    docker container stop discoveryserver
+    docker container rm discoveryserver
+    docker image rm alejoceballos/ms_study_discoveryserver:v1
 
     docker container stop configserver
     docker container rm configserver
@@ -35,7 +35,7 @@ build_images() {
     cd ../configserver || exit
     mvn clean install jib:dockerBuild -DskipTests
 
-    cd ../eurekaserver || exit
+    cd ../discoveryserver || exit
     mvn clean install jib:dockerBuild -DskipTests
   fi
 

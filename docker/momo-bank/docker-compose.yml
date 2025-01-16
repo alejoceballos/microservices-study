@@ -53,9 +53,9 @@ services:
       file: common-config.yml
       service: microservices-base-config
 
-  eurekaserver:
-    image: "alejoceballos/ms_study_eurekaserver:v1"
-    container_name: eurekaserver
+  discoveryserver:
+    image: "alejoceballos/ms_study_discoveryserver:v1"
+    container_name: discoveryserver
     ports:
       - "8070:8070"
     healthcheck:
@@ -79,7 +79,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/accountsdb"
     extends:
       file: common-config.yml
-      service: microservices-eureka-config
+      service: microservices-discovery-config
 
   cards:
     image: alejoceballos/ms_study_cards:v1
@@ -92,7 +92,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/cardsdb"
     extends:
       file: common-config.yml
-      service: microservices-eureka-config
+      service: microservices-discovery-config
 
   loans:
     image: alejoceballos/ms_study_loans:v1
@@ -105,7 +105,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/loansdb"
     extends:
       file: common-config.yml
-      service: microservices-eureka-config
+      service: microservices-discovery-config
 
 networks:
   momobank-network:

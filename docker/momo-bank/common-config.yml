@@ -25,13 +25,13 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
 
-  microservices-eureka-config:
+  microservices-discovery-config:
     extends:
       service: microservices-configserver-config
     depends_on:
       mysqldb:
         condition: service_healthy
-      eurekaserver:
+      discoveryserver:
         condition: service_healthy
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discoveryserver:8070/eureka/

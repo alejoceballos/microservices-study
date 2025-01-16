@@ -1,0 +1,602 @@
+{
+	"info": {
+		"_postman_id": "1a414465-c6b2-4e45-ace7-46034c34ebc2",
+		"name": "workspace-microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1930078"
+	},
+	"item": [
+		{
+			"name": "CONFIG",
+			"item": [
+				{
+					"name": "[CONFIG] Actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8071/actuator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CONFIG] Monitor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ref\": \"refs/heads/main\",\r\n  \"before\": \"973797481ec06398505ac441e3fa472807f60e13\",\r\n  \"after\": \"e8b324c23f70d917261d54fce2ae7c25eeae205f\",\r\n  \"repository\": {\r\n    \"id\": 913561268,\r\n    \"node_id\": \"R_kgDONnPWtA\",\r\n    \"name\": \"microservices-study-config\",\r\n    \"full_name\": \"alejoceballos/microservices-study-config\",\r\n    \"private\": false,\r\n    \"owner\": {\r\n      \"name\": \"alejoceballos\",\r\n      \"email\": \"alejoceballos75@gmail.com\",\r\n      \"login\": \"alejoceballos\",\r\n      \"id\": 6429921,\r\n      \"node_id\": \"MDQ6VXNlcjY0Mjk5MjE=\",\r\n      \"avatar_url\": \"https://avatars.githubusercontent.com/u/6429921?v=4\",\r\n      \"gravatar_id\": \"\",\r\n      \"url\": \"https://api.github.com/users/alejoceballos\",\r\n      \"html_url\": \"https://github.com/alejoceballos\",\r\n      \"followers_url\": \"https://api.github.com/users/alejoceballos/followers\",\r\n      \"following_url\": \"https://api.github.com/users/alejoceballos/following{/other_user}\",\r\n      \"gists_url\": \"https://api.github.com/users/alejoceballos/gists{/gist_id}\",\r\n      \"starred_url\": \"https://api.github.com/users/alejoceballos/starred{/owner}{/repo}\",\r\n      \"subscriptions_url\": \"https://api.github.com/users/alejoceballos/subscriptions\",\r\n      \"organizations_url\": \"https://api.github.com/users/alejoceballos/orgs\",\r\n      \"repos_url\": \"https://api.github.com/users/alejoceballos/repos\",\r\n      \"events_url\": \"https://api.github.com/users/alejoceballos/events{/privacy}\",\r\n      \"received_events_url\": \"https://api.github.com/users/alejoceballos/received_events\",\r\n      \"type\": \"User\",\r\n      \"user_view_type\": \"public\",\r\n      \"site_admin\": false\r\n    },\r\n    \"html_url\": \"https://github.com/alejoceballos/microservices-study-config\",\r\n    \"description\": \"A configuration repository for my Microservices study\",\r\n    \"fork\": false,\r\n    \"url\": \"https://github.com/alejoceballos/microservices-study-config\",\r\n    \"forks_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/forks\",\r\n    \"keys_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/keys{/key_id}\",\r\n    \"collaborators_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/collaborators{/collaborator}\",\r\n    \"teams_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/teams\",\r\n    \"hooks_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/hooks\",\r\n    \"issue_events_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/issues/events{/number}\",\r\n    \"events_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/events\",\r\n    \"assignees_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/assignees{/user}\",\r\n    \"branches_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/branches{/branch}\",\r\n    \"tags_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/tags\",\r\n    \"blobs_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/git/blobs{/sha}\",\r\n    \"git_tags_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/git/tags{/sha}\",\r\n    \"git_refs_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/git/refs{/sha}\",\r\n    \"trees_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/git/trees{/sha}\",\r\n    \"statuses_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/statuses/{sha}\",\r\n    \"languages_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/languages\",\r\n    \"stargazers_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/stargazers\",\r\n    \"contributors_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/contributors\",\r\n    \"subscribers_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/subscribers\",\r\n    \"subscription_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/subscription\",\r\n    \"commits_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/commits{/sha}\",\r\n    \"git_commits_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/git/commits{/sha}\",\r\n    \"comments_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/comments{/number}\",\r\n    \"issue_comment_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/issues/comments{/number}\",\r\n    \"contents_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/contents/{+path}\",\r\n    \"compare_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/compare/{base}...{head}\",\r\n    \"merges_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/merges\",\r\n    \"archive_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/{archive_format}{/ref}\",\r\n    \"downloads_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/downloads\",\r\n    \"issues_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/issues{/number}\",\r\n    \"pulls_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/pulls{/number}\",\r\n    \"milestones_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/milestones{/number}\",\r\n    \"notifications_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/notifications{?since,all,participating}\",\r\n    \"labels_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/labels{/name}\",\r\n    \"releases_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/releases{/id}\",\r\n    \"deployments_url\": \"https://api.github.com/repos/alejoceballos/microservices-study-config/deployments\",\r\n    \"created_at\": 1736292631,\r\n    \"updated_at\": \"2025-01-13T10:46:31Z\",\r\n    \"pushed_at\": 1736806108,\r\n    \"git_url\": \"git://github.com/alejoceballos/microservices-study-config.git\",\r\n    \"ssh_url\": \"git@github.com:alejoceballos/microservices-study-config.git\",\r\n    \"clone_url\": \"https://github.com/alejoceballos/microservices-study-config.git\",\r\n    \"svn_url\": \"https://github.com/alejoceballos/microservices-study-config\",\r\n    \"homepage\": null,\r\n    \"size\": 9,\r\n    \"stargazers_count\": 0,\r\n    \"watchers_count\": 0,\r\n    \"language\": null,\r\n    \"has_issues\": true,\r\n    \"has_projects\": true,\r\n    \"has_downloads\": true,\r\n    \"has_wiki\": true,\r\n    \"has_pages\": false,\r\n    \"has_discussions\": false,\r\n    \"forks_count\": 0,\r\n    \"mirror_url\": null,\r\n    \"archived\": false,\r\n    \"disabled\": false,\r\n    \"open_issues_count\": 0,\r\n    \"license\": {\r\n      \"key\": \"mit\",\r\n      \"name\": \"MIT License\",\r\n      \"spdx_id\": \"MIT\",\r\n      \"url\": \"https://api.github.com/licenses/mit\",\r\n      \"node_id\": \"MDc6TGljZW5zZTEz\"\r\n    },\r\n    \"allow_forking\": true,\r\n    \"is_template\": false,\r\n    \"web_commit_signoff_required\": false,\r\n    \"topics\": [],\r\n    \"visibility\": \"public\",\r\n    \"forks\": 0,\r\n    \"open_issues\": 0,\r\n    \"watchers\": 0,\r\n    \"default_branch\": \"main\",\r\n    \"stargazers\": 0,\r\n    \"master_branch\": \"main\"\r\n  },\r\n  \"pusher\": {\r\n    \"name\": \"alejoceballos\",\r\n    \"email\": \"alejoceballos75@gmail.com\"\r\n  },\r\n  \"sender\": {\r\n    \"login\": \"alejoceballos\",\r\n    \"id\": 6429921,\r\n    \"node_id\": \"MDQ6VXNlcjY0Mjk5MjE=\",\r\n    \"avatar_url\": \"https://avatars.githubusercontent.com/u/6429921?v=4\",\r\n    \"gravatar_id\": \"\",\r\n    \"url\": \"https://api.github.com/users/alejoceballos\",\r\n    \"html_url\": \"https://github.com/alejoceballos\",\r\n    \"followers_url\": \"https://api.github.com/users/alejoceballos/followers\",\r\n    \"following_url\": \"https://api.github.com/users/alejoceballos/following{/other_user}\",\r\n    \"gists_url\": \"https://api.github.com/users/alejoceballos/gists{/gist_id}\",\r\n    \"starred_url\": \"https://api.github.com/users/alejoceballos/starred{/owner}{/repo}\",\r\n    \"subscriptions_url\": \"https://api.github.com/users/alejoceballos/subscriptions\",\r\n    \"organizations_url\": \"https://api.github.com/users/alejoceballos/orgs\",\r\n    \"repos_url\": \"https://api.github.com/users/alejoceballos/repos\",\r\n    \"events_url\": \"https://api.github.com/users/alejoceballos/events{/privacy}\",\r\n    \"received_events_url\": \"https://api.github.com/users/alejoceballos/received_events\",\r\n    \"type\": \"User\",\r\n    \"user_view_type\": \"public\",\r\n    \"site_admin\": false\r\n  },\r\n  \"created\": false,\r\n  \"deleted\": false,\r\n  \"forced\": false,\r\n  \"base_ref\": null,\r\n  \"compare\": \"https://github.com/alejoceballos/microservices-study-config/compare/973797481ec0...e8b324c23f70\",\r\n  \"commits\": [\r\n    {\r\n      \"id\": \"e8b324c23f70d917261d54fce2ae7c25eeae205f\",\r\n      \"tree_id\": \"122f414661410af4a03a7c361d5ff59ca6191c40\",\r\n      \"distinct\": true,\r\n      \"message\": \"Seems that config server / git stopped working\",\r\n      \"timestamp\": \"2025-01-13T22:08:28Z\",\r\n      \"url\": \"https://github.com/alejoceballos/microservices-study-config/commit/e8b324c23f70d917261d54fce2ae7c25eeae205f\",\r\n      \"author\": {\r\n        \"name\": \"Alejo Ceballos\",\r\n        \"email\": \"alejoceballos75@gmail.com\",\r\n        \"username\": \"alejoceballos\"\r\n      },\r\n      \"committer\": {\r\n        \"name\": \"GitHub\",\r\n        \"email\": \"noreply@github.com\",\r\n        \"username\": \"web-flow\"\r\n      },\r\n      \"added\": [],\r\n      \"removed\": [],\r\n      \"modified\": [\r\n        \"accounts.yml\"\r\n      ]\r\n    }\r\n  ],\r\n  \"head_commit\": {\r\n    \"id\": \"e8b324c23f70d917261d54fce2ae7c25eeae205f\",\r\n    \"tree_id\": \"122f414661410af4a03a7c361d5ff59ca6191c40\",\r\n    \"distinct\": true,\r\n    \"message\": \"Seems that config server / git stopped working\",\r\n    \"timestamp\": \"2025-01-13T22:08:28Z\",\r\n    \"url\": \"https://github.com/alejoceballos/microservices-study-config/commit/e8b324c23f70d917261d54fce2ae7c25eeae205f\",\r\n    \"author\": {\r\n      \"name\": \"Alejo Ceballos\",\r\n      \"email\": \"alejoceballos75@gmail.com\",\r\n      \"username\": \"alejoceballos\"\r\n    },\r\n    \"committer\": {\r\n      \"name\": \"GitHub\",\r\n      \"email\": \"noreply@github.com\",\r\n      \"username\": \"web-flow\"\r\n    },\r\n    \"added\": [],\r\n    \"removed\": [],\r\n    \"modified\": [\r\n      \"accounts.yml\"\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8071/monitor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"monitor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CONFIG] Eureka",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8071/eurekaserver/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"eurekaserver",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CONFIG] Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8071/accounts/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"accounts",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CONFIG] Cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8071/cards/prod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8071",
+							"path": [
+								"cards",
+								"prod"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ACCOUNTS",
+			"item": [
+				{
+					"name": "API",
+					"item": [
+						{
+							"name": "[ACCOUNTS] Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Alejo Ceballos\",\r\n    \"email\": \"alejoceballos75@gmail.com\",\r\n    \"mobileNumber\": \"+351927509483\"\r\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/accounts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Invalid Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"alejoceballos75_gmail.comaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\r\n    \"mobileNumber\": \"+351927509483xxx\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/accounts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"accountNumber\": \"1769352508\",\r\n        \"accountType\": \"SAVINGS3\",\r\n        \"branchAddress\": \"BRANCH_ADDRESS3\",\r\n        \"customer\": {\r\n            \"name\": \"Alejo Ceballos3\",\r\n            \"email\": \"alejoceballos75@gmail.com3\",\r\n            \"mobileNumber\": \"+351927509483\"\r\n        }\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/accounts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Find By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/accounts/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"accounts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Find By Mobile Number",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/accounts?mobileNumber=%2B351927509483",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "mobileNumber",
+											"value": "%2B351927509483"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Find Customer By Mobile Number",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/accounts?mobileNumber=%2B351927509483",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "mobileNumber",
+											"value": "%2B351927509483"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ACTUATOR",
+					"item": [
+						{
+							"name": "[ACCOUNTS] Actuator",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/actuator",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"actuator"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Actuator Refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/actuator/refresh",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"actuator",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Actuator Shutdown",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/actuator/shutdown",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"actuator",
+										"shutdown"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[ACCOUNTS] Actuator Bus Refresh",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/actuator/busrefresh",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"actuator",
+										"busrefresh"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CARDS",
+			"item": [
+				{
+					"name": "[CARDS] Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/cards?mobileNumber=%2B351927509483",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "%2B351927509483"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CARDS] Find By Mobile Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/cards?mobileNumber=%2B351927509483",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "%2B351927509483"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CARDS] Actuator Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EUREKA",
+			"item": [
+				{
+					"name": "[EUREKA] Actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/api/actuator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"api",
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LOANS",
+			"item": [
+				{
+					"name": "[LOANS] Find By CustomerId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/v1/loans?customerId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"v1",
+								"loans"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[LOANS] Find By Mobile Number",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "momobank-correlation-id",
+								"value": "xya",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/cards?mobileNumber=%2B351927509483",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "%2B351927509483"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[LOANS] Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/cards?mobileNumber={{mobileNumber}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "{{mobileNumber}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[ALL] Info (port variavle)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/api/v1/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"info"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>com.momo2x.momobank</groupId>
-	<artifactId>eurekaserver</artifactId>
+	<artifactId>discoveryserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Eureka Server</name>
 	<description>Eureka Server for Momo Bank services</description>
