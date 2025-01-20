@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Cards" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <module name="cards" />
+    <projectPathOnTarget name="projectPathOnTarget" value="/app" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.momo2x.momobank.cards.CardsApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

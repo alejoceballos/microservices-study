@@ -34,4 +34,4 @@ services:
       discoveryserver:
         condition: service_healthy
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discoveryserver:8070/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discoveryserver:8070/eureka

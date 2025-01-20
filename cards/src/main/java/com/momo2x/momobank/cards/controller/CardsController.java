@@ -49,7 +49,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @Validated
 @RestController
-@RequestMapping(value = "/v1/cards", produces = {APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/v1", produces = {APPLICATION_JSON_VALUE})
 public class CardsController {
 
     private final CardService cardService;

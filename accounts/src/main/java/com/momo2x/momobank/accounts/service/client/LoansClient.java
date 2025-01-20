@@ -6,12 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static com.momo2x.momobank.accounts.constants.AccountsConstants.Loan.SERVICE_NAME;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@FeignClient("loans")
+@FeignClient(SERVICE_NAME)
 public interface LoansClient {
 
-    @GetMapping(value = "/api/v1/loans", consumes = {APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/api/v1", consumes = {APPLICATION_JSON_VALUE})
     ResponseEntity<LoanDto> findByMobileNumber(@RequestParam String mobileNumber);
 
 }

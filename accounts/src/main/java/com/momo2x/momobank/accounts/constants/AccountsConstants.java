@@ -40,6 +40,7 @@ public class AccountsConstants {
     }
 
     public static class Card {
+        public static final String SERVICE_NAME = "cards";
         public static final String CARD_NUMBER_IS_MANDATORY = "Card number is mandatory";
         public static final String CARD_NUMBER_IS_INVALID = "Card number is invalid, must be numeric with 12 digits";
         public static final String CARD_NUMBER_PATTERN = "(^$|[0-9]{12})";
@@ -58,6 +59,7 @@ public class AccountsConstants {
     }
 
     public static class Loan {
+        public static final String SERVICE_NAME = "loans";
         public static final String LOAN_NUMBER_IS_MANDATORY = "Card number is mandatory";
         public static final String LOAN_NUMBER_IS_INVALID = "Card number is invalid, must be numeric with 12 digits";
         public static final String LOAN_NUMBER_PATTERN = "(^$|[0-9]{12})";

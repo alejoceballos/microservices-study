@@ -48,7 +48,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @Validated
 @RestController
-@RequestMapping(value = "/v1/loans", produces = {APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/v1", produces = {APPLICATION_JSON_VALUE})
 public class LoanController {
 
     private final LoanService loanService;
