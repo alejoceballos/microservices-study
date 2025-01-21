@@ -1,6 +1,10 @@
-package com.momo2x.momobank.cards.constants;
+package com.momo2x.momobank.cards.constant;
 
 public class CardsConstants {
+
+    public static class Gateway {
+        public static final String CORRELATION_ID =  "momobank-correlation-id";
+    }
 
     public static class Customer {
         public static final String MOBILE_IS_MANDATORY = "Customer mobile number is mandatory";

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Need "chmod +x build-n-run.sh" to be able to run
+# shellcheck disable=SC2128
 
 logEnabled=false
 
@@ -36,49 +36,49 @@ build_n_run() {
     accountsParams=(all services accounts)
     if should_process "$accountsParams" "$1"; then
       if log; then echo "Accounts container: stopping, removing"; fi
-      docker container stop accounts || return
-      docker container rm accounts || return
-      docker image rm alejoceballos/ms_study_accounts:v1 || return
+      docker container stop accounts
+      docker container rm accounts
+      docker image rm alejoceballos/ms_study_accounts:v1
     fi
 
     cardsParams=(all services cards)
     if should_process "$cardsParams" "$1"; then
       if log; then echo "Cards container: stopping, removing"; fi
-      docker container stop cards || return
-      docker container rm cards || return
-      docker image rm alejoceballos/ms_study_cards:v1 || return
+      docker container stop cards
+      docker container rm cards
+      docker image rm alejoceballos/ms_study_cards:v1
     fi
 
     loansParams=(all services loans)
     if should_process "$loansParams" "$1"; then
       if log; then echo "Loans container: stopping, removing"; fi
-      docker container stop loans || return
-      docker container rm loans || return
-      docker image rm alejoceballos/ms_study_loans:v1 || return
+      docker container stop loans
+      docker container rm loans
+      docker image rm alejoceballos/ms_study_loans:v1
     fi
 
     discoveryParams=(all infra discovery)
     if should_process "$discoveryParams" "$1"; then
       if log; then echo "Discovery container: stopping, removing"; fi
-      docker container stop discoveryserver || return
-      docker container rm discoveryserver || return
-      docker image rm alejoceballos/ms_study_discoveryserver:v1 || return
+      docker container stop discoveryserver
+      docker container rm discoveryserver
+      docker image rm alejoceballos/ms_study_discoveryserver:v1
     fi
 
     configParams=(all infra config)
     if should_process "$configParams" "$1"; then
       if log; then echo "Config container: stopping, removing"; fi
-      docker container stop configserver || return
-      docker container rm configserver || return
-      docker image rm alejoceballos/ms_study_configserver:v1 || return
+      docker container stop configserver
+      docker container rm configserver
+      docker image rm alejoceballos/ms_study_configserver:v1
     fi
 
     gatewayParams=(all infra gateway)
     if should_process "$gatewayParams" "$1"; then
       if log; then echo "Gateway container: stopping, removing"; fi
-      docker container stop gatewayserver || return
-      docker container rm gatewayserver || return
-      docker image rm alejoceballos/ms_study_gatewayserver:v1 || return
+      docker container stop gatewayserver
+      docker container rm gatewayserver
+      docker image rm alejoceballos/ms_study_gatewayserver:v1
     fi
   }
 

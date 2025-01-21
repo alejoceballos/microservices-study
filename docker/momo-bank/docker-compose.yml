@@ -73,8 +73,12 @@ services:
     container_name: accounts
     ports:
       - "8080:8080"
-      - "9090:9090"
-      - "8084:8084"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/accountsdb"
     extends:
@@ -86,8 +90,12 @@ services:
     container_name: cards
     ports:
       - "8081:8081"
-      - "9091:9091"
-      - "8085:8085"
+    healthcheck:
+      test: "curl --fail --silent localhost:8081/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/cardsdb"
     extends:
@@ -99,8 +107,12 @@ services:
     container_name: loans
     ports:
       - "8082:8082"
-      - "9092:9092"
-      - "8086:8086"
+    healthcheck:
+      test: "curl --fail --silent localhost:8082/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/loansdb"
     extends:

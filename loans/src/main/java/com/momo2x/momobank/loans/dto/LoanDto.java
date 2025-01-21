@@ -9,25 +9,25 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
-import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_IS_INVALID;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_IS_MANDATORY;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_LENGTH_RANGE;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_MAX;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_MIN;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Customer.MOBILE_PATTERN;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_AMOUNT_USED_RANGE;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_AVAILABLE_AMOUNT_RANGE;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_LIMIT_RANGE;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_IS_INVALID;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_IS_MANDATORY;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_LENGTH_RANGE;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_MAX;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_MIN;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_NUMBER_PATTERN;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_TYPE_IS_MANDATORY;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_TYPE_LENGTH_RANGE;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_TYPE_MAX;
-import static com.momo2x.momobank.loans.constants.LoansConstants.Loan.LOAN_TYPE_MIN;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Customer.MOBILE_PATTERN;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_AMOUNT_USED_RANGE;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_AVAILABLE_AMOUNT_RANGE;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_LIMIT_RANGE;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_NUMBER_IS_INVALID;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_NUMBER_IS_MANDATORY;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_NUMBER_LENGTH_RANGE;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_NUMBER_MAX;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_NUMBER_MIN;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_NUMBER_PATTERN;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_TYPE_IS_MANDATORY;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_TYPE_LENGTH_RANGE;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_TYPE_MAX;
+import static com.momo2x.momobank.loans.constant.LoansConstants.Loan.LOAN_TYPE_MIN;
 
 @Schema(name = "Loans", description = "Loan information")
 @Data

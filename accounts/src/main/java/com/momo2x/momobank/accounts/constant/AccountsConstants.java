@@ -1,6 +1,10 @@
-package com.momo2x.momobank.accounts.constants;
+package com.momo2x.momobank.accounts.constant;
 
 public class AccountsConstants {
+
+    public static class Gateway {
+        public static final String CORRELATION_ID =  "momobank-correlation-id";
+    }
 
     public static class Customer {
         public static final String NAME_IS_MANDATORY = "Customer name is mandatory";

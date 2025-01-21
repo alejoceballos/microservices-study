@@ -1,8 +1,9 @@
-package com.momo2x.momobank.gatewayserver.constants;
+package com.momo2x.momobank.gatewayserver.constant;
 
 public class GatewayConstants {
 
     public static final String BASE_URI = "momobank";
+    public static final String CORRELATION_ID = "momobank-correlation-id";
 
     public static class Service {
         public static final String ACCOUNTS = "accounts";

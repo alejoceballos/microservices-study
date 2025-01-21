@@ -19,16 +19,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_INVALID;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_PATTERN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_PATTERN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Gateway.CORRELATION_ID;
 
 @Tag(name = "REST API for Customers in EazyBank", description = "REST APIs in EazyBank to FETCH customer details")
 @Slf4j
@@ -59,14 +61,14 @@ public class AccountsCustomerController {
     })
     @GetMapping()
     public ResponseEntity<CustomerDetailsDto> findByMobileNumber(
+            @RequestHeader(CORRELATION_ID) final String correlationId,
             @NotBlank(message = MOBILE_IS_MANDATORY)
             @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
             @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
             @RequestParam final String mobileNumber
     ) {
-        final var details = customerService.findCustomerDetailsByMobileNumber(mobileNumber);
-
-        log.debug("Found {}", details);
+        log.debug("Correlation ID {}:{} found", CORRELATION_ID, correlationId);
+        final var details = customerService.findCustomerDetailsByMobileNumber(correlationId, mobileNumber);
 
         return ResponseEntity
                 .status(HttpStatus.SC_OK)

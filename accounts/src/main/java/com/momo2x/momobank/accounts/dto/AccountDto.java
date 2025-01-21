@@ -9,18 +9,18 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.BRANCH_ADDR_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.BRANCH_ADDR_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.BRANCH_ADDR_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.BRANCH_ADDR_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.NUMBER_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.TYPE_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.TYPE_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.TYPE_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Account.TYPE_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.BRANCH_ADDR_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.BRANCH_ADDR_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.BRANCH_ADDR_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.BRANCH_ADDR_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.NUMBER_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.NUMBER_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.NUMBER_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.NUMBER_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.TYPE_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.TYPE_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.TYPE_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Account.TYPE_MIN;
 
 @Schema(name = "Account", description = "Account information. May also include customer's info")
 @Data

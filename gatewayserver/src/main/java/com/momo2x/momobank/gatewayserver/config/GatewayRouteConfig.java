@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.function.Function;
 
-import static com.momo2x.momobank.gatewayserver.constants.GatewayConstants.Service.ACCOUNTS;
-import static com.momo2x.momobank.gatewayserver.constants.GatewayConstants.Service.CARDS;
-import static com.momo2x.momobank.gatewayserver.constants.GatewayConstants.Service.LOANS;
-import static com.momo2x.momobank.gatewayserver.constants.GatewayConstants.BASE_URI;
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.Service.ACCOUNTS;
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.Service.CARDS;
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.Service.LOANS;
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.BASE_URI;
 import static java.lang.String.format;
 
 @Configuration

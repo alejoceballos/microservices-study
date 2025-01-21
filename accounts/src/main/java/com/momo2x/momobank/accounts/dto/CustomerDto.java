@@ -8,21 +8,21 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.EMAIL_IS_INVALID;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.EMAIL_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.EMAIL_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.EMAIL_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.EMAIL_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_INVALID;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_PATTERN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.NAME_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.NAME_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.NAME_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.NAME_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.EMAIL_IS_INVALID;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.EMAIL_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.EMAIL_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.EMAIL_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.EMAIL_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_PATTERN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.NAME_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.NAME_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.NAME_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.NAME_MIN;
 
 @Schema(name = "Customer", description = "Customer information")
 @Data

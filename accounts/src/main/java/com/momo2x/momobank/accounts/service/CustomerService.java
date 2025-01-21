@@ -79,7 +79,9 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public CustomerDetailsDto findCustomerDetailsByMobileNumber(final String mobileNumber) {
+    public CustomerDetailsDto findCustomerDetailsByMobileNumber(
+            final String correlationId,
+            final String mobileNumber) {
         final var customer = customerRepository
                 .findByMobileNumber(mobileNumber)
                 .orElseThrow(notFoundExceptionSupplier(
@@ -96,10 +98,10 @@ public class CustomerService {
         final var customerDetailsDto = customerDetailsMapper.toDto(customer);
         customerDetailsDto.setAccountDto(accountMapper.toDto(account));
 
-        final var loansDtoResponseEntity = loansClient.findByMobileNumber(mobileNumber);
+        final var loansDtoResponseEntity = loansClient.findByMobileNumber(correlationId, mobileNumber);
         customerDetailsDto.setLoanDto(loansDtoResponseEntity.getBody());
 
-        final var cardsDtoResponseEntity = cardsClient.findByMobileNumber(mobileNumber);
+        final var cardsDtoResponseEntity = cardsClient.findByMobileNumber(correlationId, mobileNumber);
         customerDetailsDto.setCardDto(cardsDtoResponseEntity.getBody());
 
         return customerDetailsDto;

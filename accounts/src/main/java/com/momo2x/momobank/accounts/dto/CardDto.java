@@ -8,25 +8,25 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_AMOUNT_USED_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_AVAILABLE_AMOUNT_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_LIMIT_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_NUMBER_IS_INVALID;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_NUMBER_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_NUMBER_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_NUMBER_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_NUMBER_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_NUMBER_PATTERN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_TYPE_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_TYPE_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_TYPE_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Card.CARD_TYPE_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_INVALID;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MAX;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_MIN;
-import static com.momo2x.momobank.accounts.constants.AccountsConstants.Customer.MOBILE_PATTERN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_AMOUNT_USED_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_AVAILABLE_AMOUNT_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_LIMIT_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_NUMBER_IS_INVALID;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_NUMBER_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_NUMBER_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_NUMBER_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_NUMBER_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_NUMBER_PATTERN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_TYPE_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_TYPE_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_TYPE_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.CARD_TYPE_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_IS_INVALID;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_IS_MANDATORY;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_LENGTH_RANGE;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_MAX;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_MIN;
+import static com.momo2x.momobank.accounts.constant.AccountsConstants.Customer.MOBILE_PATTERN;
 
 @Schema(name = "Cards", description = "Schema to hold Card information")
 @Data
