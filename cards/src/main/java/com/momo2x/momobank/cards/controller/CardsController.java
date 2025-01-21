@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +40,6 @@ import static com.momo2x.momobank.cards.constant.CardsConstants.Customer.MOBILE_
 import static com.momo2x.momobank.cards.constant.CardsConstants.Customer.MOBILE_MAX;
 import static com.momo2x.momobank.cards.constant.CardsConstants.Customer.MOBILE_MIN;
 import static com.momo2x.momobank.cards.constant.CardsConstants.Customer.MOBILE_PATTERN;
-import static com.momo2x.momobank.cards.constant.CardsConstants.Gateway.CORRELATION_ID;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -113,14 +111,14 @@ public class CardsController {
     })
     @GetMapping
     public ResponseEntity<CardDto> findByMobileNumber(
-            @RequestHeader(CORRELATION_ID) final String correlationId,
             @NotBlank(message = MOBILE_IS_MANDATORY)
             @Size(min = MOBILE_MIN, max = MOBILE_MAX, message = MOBILE_LENGTH_RANGE)
             @Pattern(regexp = MOBILE_PATTERN, message = MOBILE_IS_INVALID)
             @RequestParam final String mobileNumber
     ) {
-        log.debug("Correlation ID {}:{} found", CORRELATION_ID, correlationId);
         final var card = cardService.findByMobileNumber(mobileNumber);
+
+        log.debug("Loaded {}", card);
 
         return ResponseEntity
                 .status(OK)

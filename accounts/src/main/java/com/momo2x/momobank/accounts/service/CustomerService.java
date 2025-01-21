@@ -7,8 +7,7 @@ import com.momo2x.momobank.accounts.entity.Customer;
 import com.momo2x.momobank.accounts.exception.ResourceAlreadyExistsException;
 import com.momo2x.momobank.accounts.repository.AccountRepository;
 import com.momo2x.momobank.accounts.repository.CustomerRepository;
-import com.momo2x.momobank.accounts.service.client.CardsClient;
-import com.momo2x.momobank.accounts.service.client.LoansClient;
+import com.momo2x.momobank.accounts.service.client.ServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +26,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
 
-    private final CardsClient cardsClient;
-    private final LoansClient loansClient;
+    private final ServiceClient serviceClient;
 
     public Customer create(final CustomerDto customerDto) {
         if (customerRepository.findByMobileNumber(customerDto.getMobileNumber()).isPresent()) {
@@ -79,9 +77,7 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public CustomerDetailsDto findCustomerDetailsByMobileNumber(
-            final String correlationId,
-            final String mobileNumber) {
+    public CustomerDetailsDto findCustomerDetailsByMobileNumber(final String mobileNumber) {
         final var customer = customerRepository
                 .findByMobileNumber(mobileNumber)
                 .orElseThrow(notFoundExceptionSupplier(
@@ -98,14 +94,13 @@ public class CustomerService {
         final var customerDetailsDto = customerDetailsMapper.toDto(customer);
         customerDetailsDto.setAccountDto(accountMapper.toDto(account));
 
-        final var loansDtoResponseEntity = loansClient.findByMobileNumber(correlationId, mobileNumber);
-        customerDetailsDto.setLoanDto(loansDtoResponseEntity.getBody());
+        final var loan = serviceClient.findLoanByMobileNumber(mobileNumber);
+        customerDetailsDto.setLoanDto(loan);
 
-        final var cardsDtoResponseEntity = cardsClient.findByMobileNumber(correlationId, mobileNumber);
-        customerDetailsDto.setCardDto(cardsDtoResponseEntity.getBody());
+        final var card = serviceClient.findCardByMobileNumber(mobileNumber);
+        customerDetailsDto.setCardDto(card);
 
         return customerDetailsDto;
-
     }
 
 }
