@@ -7,7 +7,7 @@ import com.momo2x.momobank.accounts.entity.Customer;
 import com.momo2x.momobank.accounts.exception.ResourceAlreadyExistsException;
 import com.momo2x.momobank.accounts.repository.AccountRepository;
 import com.momo2x.momobank.accounts.repository.CustomerRepository;
-import com.momo2x.momobank.accounts.service.client.ServiceClient;
+import com.momo2x.momobank.accounts.service.client.ServicesClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
 
-    private final ServiceClient serviceClient;
+    private final ServicesClient servicesClient;
 
     public Customer create(final CustomerDto customerDto) {
         if (customerRepository.findByMobileNumber(customerDto.getMobileNumber()).isPresent()) {
@@ -94,10 +94,10 @@ public class CustomerService {
         final var customerDetailsDto = customerDetailsMapper.toDto(customer);
         customerDetailsDto.setAccountDto(accountMapper.toDto(account));
 
-        final var loan = serviceClient.findLoanByMobileNumber(mobileNumber);
+        final var loan = servicesClient.findLoanByMobileNumber(mobileNumber);
         customerDetailsDto.setLoanDto(loan);
 
-        final var card = serviceClient.findCardByMobileNumber(mobileNumber);
+        final var card = servicesClient.findCardByMobileNumber(mobileNumber);
         customerDetailsDto.setCardDto(card);
 
         return customerDetailsDto;

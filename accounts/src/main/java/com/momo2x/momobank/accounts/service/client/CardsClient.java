@@ -11,7 +11,7 @@ import static com.momo2x.momobank.accounts.constant.AccountsConstants.Card.SERVI
 import static com.momo2x.momobank.accounts.constant.AccountsConstants.Gateway.CORRELATION_ID;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@FeignClient(SERVICE_NAME)
+@FeignClient(value = SERVICE_NAME, fallback = FallbackCardsClient.class)
 public interface CardsClient {
 
     @GetMapping(value = "/api/v1", consumes = {APPLICATION_JSON_VALUE})

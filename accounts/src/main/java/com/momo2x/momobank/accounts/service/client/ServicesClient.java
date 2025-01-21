@@ -4,11 +4,14 @@ import com.momo2x.momobank.accounts.dto.AccountsCrossCuttingConcernInfo;
 import com.momo2x.momobank.accounts.dto.CardDto;
 import com.momo2x.momobank.accounts.dto.LoanDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import static java.util.Optional.ofNullable;
 
 @RequiredArgsConstructor
 @Service
-public class ServiceClient {
+public class ServicesClient {
 
     private final AccountsCrossCuttingConcernInfo info;
 
@@ -17,11 +20,15 @@ public class ServiceClient {
 
 
     public LoanDto findLoanByMobileNumber(final String mobileNumber) {
-        return loans.findByMobileNumber(info.getCorrelationId(), mobileNumber).getBody();
+        return ofNullable(loans.findByMobileNumber(info.getCorrelationId(), mobileNumber))
+                .map(ResponseEntity::getBody)
+                .orElse(null);
     }
 
     public CardDto findCardByMobileNumber(final String mobileNumber) {
-        return cards.findByMobileNumber(info.getCorrelationId(), mobileNumber).getBody();
+        return ofNullable(cards.findByMobileNumber(info.getCorrelationId(), mobileNumber))
+                .map(ResponseEntity::getBody)
+                .orElse(null);
     }
 
 }

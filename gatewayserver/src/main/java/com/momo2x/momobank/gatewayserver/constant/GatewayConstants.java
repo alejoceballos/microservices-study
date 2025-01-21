@@ -11,4 +11,15 @@ public class GatewayConstants {
         public static final String LOANS = "loans";
     }
 
+    public static class CircuitBreaker {
+        public static final String SUFFIX = "CircuitBreaker";
+        public static String name(final String prefix) {
+            return prefix + SUFFIX;
+        }
+
+        public static class Fallback {
+            public static final String URL = "/contactsupport";
+        }
+    }
+
 }

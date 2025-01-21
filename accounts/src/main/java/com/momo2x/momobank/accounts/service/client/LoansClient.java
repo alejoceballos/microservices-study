@@ -11,7 +11,7 @@ import static com.momo2x.momobank.accounts.constant.AccountsConstants.Gateway.CO
 import static com.momo2x.momobank.accounts.constant.AccountsConstants.Loan.SERVICE_NAME;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@FeignClient(SERVICE_NAME)
+@FeignClient(value = SERVICE_NAME, fallback = FallbackLoansClient.class)
 public interface LoansClient {
 
     @GetMapping(value = "/api/v1", consumes = {APPLICATION_JSON_VALUE})

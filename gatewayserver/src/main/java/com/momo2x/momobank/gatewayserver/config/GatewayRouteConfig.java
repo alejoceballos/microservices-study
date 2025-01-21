@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.function.Function;
 
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.BASE_URI;
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.CircuitBreaker.Fallback.URL;
+import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.CircuitBreaker.name;
 import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.Service.ACCOUNTS;
 import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.Service.CARDS;
 import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.Service.LOANS;
-import static com.momo2x.momobank.gatewayserver.constant.GatewayConstants.BASE_URI;
 import static java.lang.String.format;
 
 @Configuration
@@ -34,7 +36,10 @@ public class GatewayRouteConfig {
                 .filters(gatewayFilterSpec -> gatewayFilterSpec
                         .rewritePath(
                                 format("/%s/%s/(?<segment>.*)", BASE_URI, service),
-                                "/${segment}"))
+                                "/${segment}")
+                        .circuitBreaker(config -> config
+                                .setName(name(service))
+                                .setFallbackUri(format("forward:%s", URL))))
                 .uri(format("lb://%s", service.toUpperCase()));
     }
 }
