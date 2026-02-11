@@ -77,17 +77,17 @@ My notes and code from https://www.udemy.com/course/master-microservices-with-sp
 
 ## Microservices
 
-An architecture style that enables building enterprise web applications. It separates business domain logic into 
-different services ideally each one with its own database. It allows not only parallel development, but horizontal 
+An architectural style that enables the building of enterprise web applications. It separates business domain logic into 
+different services, ideally each one with its own database. It allows not only parallel development, but horizontal 
 scaling. On the other side, it has some management complexity and infrastructure overhead, but it allows the deployment
-of a single service without the need of deploying the whole application.
+of a single service without the need to deploy the whole application.
 
-Other architecture styles are:
+Other architectural styles are:
 - **Monolith:** Deployed as a single structure. Smaller application for smaller teams. Fewer cross-cutting concerns. 
 Better performance between concerns and domains. The whole application must follow the same set of technologies, as it
-grows larger becomes harder to maintain and small changes demand a full deployment;
-- **SOA (Service Oriented Architecture):** Separates concerns into services that can be worked in parallel. These 
-services can be reused and better balanced. Its management, however is more complex than the monolith architecture and
+grows larger, becomes harder to maintain, and small changes demand a full deployment.
+- **SOA (Service Oriented Architecture):** Separates concerns into services that can be worked on in parallel. These 
+services can be reused and better balanced. Its management, however, is more complex than the monolith architecture, and
 the communication between services demands a complex  and overloaded protocol (e.g. SOAP).
 
 ### Important
@@ -107,11 +107,11 @@ When developing microservices, bear in mind:
 
 #### Identifying Boundaries
 
-* DDD - Domain Driven design
+* DDD - Domain Driven Design
   * Talk to Domain experts, Business Analysts, users, etc.
-  * Keep continuous analysis to prevent growing or shrinking too much, in order to split in other servers or to be  
+  * Keep continuous analysis to prevent growing or shrinking too much, in order to split into other servers or to be  
 absorbed by another one. 
-  * This process takes  along amount of time
+  * This process takes  a long time
 * Event Storming Sizing
   * https://www.lucidchart.com/blog/ddd-event-storming
   * Identify events in the system: "completed payment", "list of products"
@@ -121,9 +121,9 @@ absorbed by another one.
 ## Configuration Management
 
 How to:
-- Individualize config properties in order that multiple instances of the same service can be deployed in multiple envs?
-- Inject configuration values to the container according to its environment during start up or even on-the-fly?
-- How to centralize all config properties along its versions?
+- Individualise config properties so that multiple instances of the same service can be deployed in multiple environments?
+- Inject configuration values into the container according to its environment during start-up or even on the fly?
+- How to centralise all config properties along their versions?
 
 Solutions:
 - Use Spring Boot properties with profiles (not good, too limited)
@@ -135,7 +135,7 @@ Considerations:
   - Access: people cannot have access to your configuration values
   - Encryption 
 - History: Audit & Revision of configuration values
-- Easy to manage: Multiple services instances configuration management
+- Easy to manage: Multiple service instances configuration management
 - Availability: On-the-fly configuration change
 
 Example (using a Message Broker and GitHub repository:
@@ -144,7 +144,7 @@ Example (using a Message Broker and GitHub repository:
 ## Cloud Native
 
 Create applications designed for cloud computing. Get the full CNCF definition [here](https://github.com/cncf/toc/blob/main/DEFINITION.md).
-Basically it is a set of practices that allow your application to run in any cloud environment.
+Basically, it is a set of practices that allow your application to run in any cloud environment.
 
 1. Microservices (Loosely coupled services developed, deployed and scaled independently)
 2. Containers (Lightweight, portable environments)
@@ -190,35 +190,35 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 ###### 1) 1 Code base, 1 Application
 
 - In real life, each microservice must have its own repository.
-- Configurations must be injected externally during deployment (or on'-the-fly?)
+- Configurations must be injected externally during deployment (or on-the-fly?)
 - The same codebase must be used in development, testing and production environments
 
 ###### 2) API first
 
-- Prioritize upfront API design
+- Prioritise upfront API design
 - Encourage division of work
 - Allow asynchronous development
 
 ###### 3) Dependency management
 
 - Declare all dependencies in a manifest
-- Use dependence managers like Maven or Gradle
+- Use dependency managers like Maven or Gradle
 
 ###### 4) Design, build, release, run
 
 - Design stage: determine techs, dependencies and tools
-- Build stage: compile and package to a unique identifiable immutable artifact
+- Build stage: compile and package to a unique, identifiable, immutable artefact
   - Use semantic versioning or timestamp versioning
-- Release stage: Combine the build to a deployment configuration
+- Release stage: Combine the build with a deployment configuration
   - Facilitate rollback through a central repository storage
 - Run stage: Execute the application using a release
 
 ###### 5) Configuration, credentials & code
 
 - Do not embed configuration in the code
-- Enable change configurations independently of environment
-- Resources for backing services (i.e. databases, messaging, credentials etc.)
-- Do not expose sensitive configurations in the public
+- Enable change configurations independently of the environment
+- Resources for backing services (i.e. databases, messaging, credentials, etc.)
+- Do not expose sensitive configurations to the public
 - Store configuration in a distinct, private repository
 
 ###### 6) Logs
@@ -230,10 +230,10 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 
 ###### 7) Disposability
 
-- Application in the clouds are considered ephemeral
+- Applications in the clouds are considered ephemeral
 - It must be possible to terminate a service and replace it with a new instance
 - Applications can be started and stopped as needed
-- Design applications for fast start up and graceful shutdown
+- Design applications for fast start-up and graceful shutdown
 
 ###### 8) Backing services
 
@@ -241,18 +241,18 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 - Different backing service instances per environment
 - Manage each instance using resource binding per environment
 
-###### 9) Environment parity
+###### 9) Environmental parity
 
 - Minimize difference between environments
 - Use containers
 - Address:
   - Time gap: The time between development and deployment. Use Continuous Integration and development
   - People gap: address the difference between roles. Use DevOps culture
-  - Tools gap: Use the same tools regardless environment (e.g. same database tech in dev, test and production)
+  - Tools gap: Use the same tools regardless of environment (e.g. same database tech in dev, test and production)
 
 ###### 10) Administrative processes
 
-- Non-functional tasks, like migrations and maintenance should be treated as an isolated process 
+- Non-functional tasks, like migrations and maintenance, should be treated as an isolated process 
 - These processes are equally important and must be properly tracked, tested and deployed
 - But separate the administrative tasks from the business logic of the service
 
@@ -261,7 +261,7 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 **NOTE: To be reviewed**
 
 - Translate external public endpoints to internal endpoints
-- Can be an application, externally visible, that requests to internal microservices application
+- Can be an application, externally visible, that requests internal microservices applications
 - GraphQL, for example?
 
 ###### 12) Stateless processes
@@ -273,7 +273,7 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 
 ###### 13) Concurrency
 
-- Serve large number of users simultaneously
+- Serve a large number of users simultaneously
 - Must be horizontally scalable
 - Java use thread pools
 
@@ -283,14 +283,14 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 - Monitor a large number of services and servers
 - Remote monitoring
 
-###### 15) Authentication & Authorization
+###### 15) Authentication & Authorisation
 
 - Security is a critical aspect
 - Zero-trust approach
 - External and internal communication must follow security standards
-- Authentication & authorization, Code injection prevention: developer responsibility
+- Authentication & authorisation, Code injection prevention: developer responsibility
   - Authentication: track who is using the system
-  - Authorization: who has access to what
+  - Authorisation: who has access to what
 - HTTPS, SSL certificates, Firewall: platform team responsibility 
 
 ## Communication
@@ -308,7 +308,7 @@ and [Beyond the Twelve-Factor App](https://raw.githubusercontent.com/ffisk/books
 
 ## A Basic Spring Web Application
 
-- Using Spring Initializer
+- Using Spring Initialiser
 ![A basic Spring Web Application using Spring Initializer](README.files/Basic-Spring-Web-Application.png "Spring Initializer")
 
 - Adding it as a module in IntelliJ
@@ -350,13 +350,13 @@ public class AccountsConfigProperties {
 Pros:
 - Decoupled bean creation
 - No extra annotation needed
-- Allows changing values in runtime
+- Allows changing values at runtime
 
 Cons:
 - One more class to manage
 - Another bean to keep track
 
-(2) Annotated main class with annotated record
+(2) Annotated the main class with an annotated record
 
 ```java
 @ConfigurationProperties(prefix = "someprefix")
@@ -378,11 +378,11 @@ Pros:
 - Use of records
 
 Cons:
-- Extra annotation in record and main class
+- Extra annotation in the record and main class
 - Couples the record to the Spring framework
-- Does not allow changing values in runtime
+- Does not allow changing values at runtime
 
-(3) Annotated main class with annotated pojo
+(3) Annotated main class with annotated POJO
 
 ```java
 @Getter
@@ -403,7 +403,7 @@ public class AccountsApplication {
 ```
 Pros:
 - Same as approach (2), without the use of records
-- Same as approach (2), but allows changing values in runtime
+- Same as approach (2), but allows changing values at runtime
 
 ### Profiles
 
@@ -428,8 +428,8 @@ Example:
 - QA: application_qa.properties
 - Production: application_prod.properties
 
-**NOTE!** Put in the main "application" file everything that is shared between profiles amd the default values for a 
-development environment. In other files, put only what is specific for the environment, there is no need to repeat the 
+**NOTE!** Put in the main "application" file everything that is shared between profiles and the default values for a 
+development environment. In other files, put only what is specific to the environment; there is no need to repeat the 
 same values that are already defined in the main "application" file.
 
 #### Activating a profile
@@ -441,7 +441,7 @@ same values that are already defined in the main "application" file.
  
 ### H2 Database:
 
-Creating a "schema.sql" file under "main/resources", H2 will create the tables when starting up.
+Creating a "schema.sql" file in "main/resources" causes H2 to create the tables when it starts up.
 
 To be able to access the H2 memory database using IntelliJ, besides the web h2-console.
 Check:
@@ -484,7 +484,7 @@ Optional<T> findByXXX(T xxx)
 
 @Transactional
 
-How to use Spring returning Optional and Hibernate Proxy? No persistence context? Always a new select?
+How to use Spring returning Optional and Hibernate Proxy? No persistence context? Always a new selection?
 
 jpa.show-sql=true
 jpa.properties.hibernate.format_sql=true
@@ -531,7 +531,7 @@ Check: https://springdoc.org/
 
 Just add the dependency (no security at this time).
 
-Note that context-path is "api", so should go to: http://localhost:8080/api/swagger-ui/index.html
+Note that context-path is "api", so it should go to: http://localhost:8080/api/swagger-ui/index.html
 
 Validations are used to improve the documentation
 
@@ -564,12 +564,12 @@ Can be stored in:
 - filesystem
 - git
 - database
-- AWS s3
+- AWS S3
 - etc.
 
 ### Configuration
 
-For the full detail, check:
+For the full details, check:
 - https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_environment_repository
 
 For all services (config also):
@@ -608,8 +608,8 @@ For the config server:
   - service1, service1-qa, service1-prod
   - service2, service2-qa, service2-prod
   - ...
-- Remove all that is not necessary to externalize and it is not environment dependent
-  - Also `spring.config.activate.on-profile` and `config.import` properties are no longer necessary
+- Remove all that is not necessary to externalize and it is not environment-dependent
+  - Also, `spring.config.activate.on-profile` and `config.import` properties are no longer necessary
 - Add `spring.profiles.active=native` and `spring.cloud.config.server.native.search-locations="classpath:/config-dir"` to 
 application (.properties or .yml)
 
@@ -674,17 +674,17 @@ Simply put, **Docker** is the software that allows creating containers.
 
 ### Containers vs. Virtual Machines
 
-Virtualization is a way to use a single machine to run many environments simulating several machines working at the same 
-time, but while "Virtual Machines" are capable to run diverse operating systems, allowing to simulate deploying a system
+Virtualisation is a way to use a single machine to run many environments, simulating several machines working at the same 
+time, but while "Virtual Machines" are capable of running diverse operating systems, allowing to simulate deploying a system
 to a Mac and a Linux OS, containers share the same OS kernel, meaning that all of them will simulate running in the same 
-OS. However, having multiple Virtual Machines in the same machine wil demand more processing and memory than having 
+OS. However, having multiple Virtual Machines in the same machine will demand more processing and memory than having 
 multiple containers.
 
 ![Containers vs. Virtual Machines](README.files/VM-Vs-Container.png "Containers vs. Virtual Machines")
 
 #### NOTE! Using two OS simultaneously
 
-Docker allows using Windows and Linux containers simultaneously in a Windows machine. Check 
+Docker allows using Windows and Linux containers simultaneously on a Windows machine. Check 
 [Running Docker Windows and Linux Containers Simultaneously](https://devblogs.microsoft.com/premier-developer/running-docker-windows-and-linux-containers-simultaneously/)
 
 ### Images & Container
@@ -701,7 +701,7 @@ Docker allows using Windows and Linux containers simultaneously in a Windows mac
 
 Needs more manual steps and must know more of Docker internals.
 
-1. Create your artifact (`mvn clean install`)
+1. Create your artefact (`mvn clean install`)
 2. Create your Dockerfile (`FROM`/`COPY`/`ENTRYPOINT`)
 3. Create your image (`docker build`)
 4. Run your container (`docker run`)
@@ -709,7 +709,7 @@ Needs more manual steps and must know more of Docker internals.
 #### Buildpacks
 
 Does not need to know Docker internals, just add a configuration to the existing plugin. For professional deployment, it
-seems to be a more complete tool than the next one, Google Jib.
+seems to be a more complete tool than Google Jib.
 
 1. Edit `pom.xml` (spring-boot-maven-plugin), add: `configuration` / `image` / `name`
 2. Create your image (`mvn spring-boot:build-image`)
@@ -739,7 +739,7 @@ seems to be a more complete tool than the next one, Google Jib.
 ```shell
 mvn spring-boot:build-image -DskipTests
 ```
-**NOTE:** Use "skip tests" if the config is not ready to mock rabbit mq or any external dependency
+**NOTE:** Use "skip tests" if the config is not ready to mock RabbitMQ or any external dependency
 
 #### Google Jib
 
@@ -770,14 +770,14 @@ Faster than Buildpacks. Need to add a plugin to pom.xml.
 ```shell
 mvn compile jib:dockerBuild -DskipTests
 ```
-**NOTE:** Use "skip tests" if the config is not ready to mock rabbit mq or any external dependency
+**NOTE:** Use "skip tests" if the config is not ready to mock RabbitMQ or any external dependency
 
 #### Comparison
 
 - [Buildpacks vs Jib vs Dockerfile: Comparing containerization methods](https://cloud.google.com/blog/topics/developers-practitioners/comparing-containerization-methods-buildpacks-jib-and-dockerfile)
 - [Buildpacks.io comparison page](https://buildpacks.io/features/#comparison)
 
-### Push images to Docker hub
+### Push images to Docker Hub
 
 ```shell
 docker image push docker.io/username/imagename:tag
@@ -818,10 +818,10 @@ Used to use webhooks locally
 2. Click on "Developer menu
 3. Under "SDK & Tools", click on "Hookdeck Console"
 4. Click on the button at the top: "Add Destination"
-5. On the right panel, "Destination Settings", click on "Localhost" tab
+5. On the right panel, "Destination Settings", click on the "Localhost" tab
 6. Follow the steps to install and run it
 
-(?) Do I have to run this everytime?
+(?) Do I have to run this every time?
 ```shell
 hookdeck login --cli-key <hookdeck-key>
 hookdeck listen 8071 Source --cli-path /monitor
